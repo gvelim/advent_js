@@ -11,5 +11,8 @@
   "dependencies": {
     "@types/node": "^20.14.2",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "fp-ts": "^2.16.6"
   }
 }
