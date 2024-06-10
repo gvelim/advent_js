@@ -1,11 +1,16 @@
- const input =
-        "two1nine\n\
-        eightwothree\n\
-        abcone2threexyz\n\
-        xtwone3four\n\
-        4nineeightseven2\n\
-        zoneight234\n\
-        7pqrstsixteen";
 
+import * as fs from "node:fs/promises";
 
- console.log(input);
+let buf = await fs.readFile("./day1/sample.txt", {encoding: 'ascii'});
+
+for (const line of buf.split("\n")) {
+    let buf = [];
+    for (const char of line) {
+        isDigit(char) ? buf.push(char) : 0;
+    }
+    console.log(line + " = " + buf[0] + buf.pop());
+}
+
+function isDigit(char: string): boolean {
+    return char >= '0' && char<= '9'
+}
