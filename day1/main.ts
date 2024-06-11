@@ -2,14 +2,15 @@
 import * as fs from "node:fs/promises";
 import {Option, some, none, match} from "fp-ts/Option";
 import {pipe} from "fp-ts/function";
+import { timeStamp } from "node:console";
 
 function isDigit(char: string): boolean {
     return char >= '0' && char<= '9'
 }
 
-const TXT = ["one","two","three","four","five","six","seven","eight","nine"];
-
 function scan_word(buf: string): Option<string> {
+    const TXT = ["one","two","three","four","five","six","seven","eight","nine"];
+
     for( let i = 0; i < TXT.length; i++ ) {
         if( buf.endsWith(TXT[i]) )
             return some((i+1).toString());
@@ -19,11 +20,13 @@ function scan_word(buf: string): Option<string> {
 
 let buf = await fs.readFile("./day1/sample.txt", {encoding: 'ascii'});
 
-for (const line of buf.split("\n")) {
+console.time();
+
+for( const line of buf.split("\n") ) {
     let buf = [];
     let l = 0;
 
-    for (let i = 0; i < line.length; i++) {
+    for( let i = 0; i < line.length; i++ ) {
         if( isDigit(line[i]) ) {
             l = i+1;
             buf.push(line[i]);
@@ -39,3 +42,5 @@ for (const line of buf.split("\n")) {
     }
     console.log(line + " = " + buf[0] + buf.pop());
 }
+
+console.timeEnd();
