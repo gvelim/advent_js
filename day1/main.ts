@@ -19,7 +19,6 @@ function scan_word(buf: string): Option<string> {
 
 let buf = await fs.readFile("./day1/sample.txt", {encoding: 'ascii'});
 
-
 for (const line of buf.split("\n")) {
     let buf = [];
     let l = 0;
