@@ -2,13 +2,12 @@
 import * as fs from "node:fs/promises";
 import {Option, some, none, match} from "fp-ts/Option";
 import {pipe} from "fp-ts/function";
-import { timeStamp } from "node:console";
 
-function isDigit(char: string): boolean {
+const isDigit = (char: string): boolean => {
     return char >= '0' && char<= '9'
 }
 
-function scan_word(buf: string): Option<string> {
+const scan_word = (buf: string): Option<string> => {
     const TXT = ["one","two","three","four","five","six","seven","eight","nine"];
 
     for( let i = 0; i < TXT.length; i++ ) {
