@@ -1,6 +1,6 @@
 
 import * as fs from "node:fs/promises";
-import {Option, some, none, match} from "fp-ts/Option";
+import {Option, some, none, map} from "fp-ts/Option";
 import {pipe} from "fp-ts/function";
 
 const isDigit = (char: string): boolean => {
@@ -17,10 +17,10 @@ const scan_word = (buf: string): Option<string> => {
     return none;
 }
 
-let buf = await fs.readFile("./day1/sample.txt", {encoding: 'ascii'});
+let buf = await fs.readFile("./day1/input.txt", {encoding: 'ascii'});
+let sum = 0;
 
 console.time();
-
 for( const line of buf.split("\n") ) {
     let buf = [];
     let l = 0;
@@ -29,17 +29,17 @@ for( const line of buf.split("\n") ) {
         if( isDigit(line[i]) ) {
             l = i+1;
             buf.push(line[i]);
-        } else {
+        } else
             pipe(
-                scan_word(line.substring(l,i+1)),
-                match(
-                    () => {},
-                    (val) => { l = i; buf.push(val) }
-                ),
-            )
-        }
+                line.substring(l,i+1),
+                scan_word,
+                map((val) => { l = i; buf.push(val) }),
+            );
+
     }
-    console.log(line + " = " + buf[0] + buf.pop());
+    sum += buf[0] ? parseInt(buf[0] + buf.pop()) : 0;
+    console.log(line + " = " + sum);
 }
 
+console.log("Total = " + sum);
 console.timeEnd();
