@@ -15,18 +15,18 @@ const scan_word = (buf: string): Option<string> => {
     return none;
 }
 
-export function* parse_part1(line:string): Generator<string> {
+export function* parse_part1(line:string): IterableIterator<string> {
     for(let c of line) {
         if( isDigit(c) ) yield c;
     }
 }
 
-export function parse_part2(line:string) {
+export function parse_part2(line:string): IterableIterator<string> {
     let l = 0;
     let i = 0;
 
     return {
-        next(): IteratorResult<string|undefined> {
+        next(): IteratorResult<string> {
             let ret: string = "";
             while( ret === "" && i < line.length) {
                 if( isDigit(line[i]) ) {
@@ -42,7 +42,7 @@ export function parse_part2(line:string) {
             }
             return {
                 done: !ret,
-                value: ret !== "" ? ret: undefined
+                value: ret
             };
         },
         [Symbol.iterator]() { return this },

@@ -4,7 +4,10 @@ import * as p from "../day1/parser";
 
 let buf = await fs.readFile("./day1/input.txt", {encoding: 'ascii'});
 
-const summarise = (buffer:string, parser) => {
+const summarise = (
+    buffer :string,
+    parser :(_:string) => IterableIterator<string>
+) => {
     let sum = 0;
     for( const line of buffer.split("\n") ) {
         let buf = [];
