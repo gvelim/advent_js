@@ -48,3 +48,22 @@ export function parse_part2(line:string): IterableIterator<string> {
         [Symbol.iterator]() { return this },
     }
 }
+
+
+export interface Parser {
+    parse(line:string): IterableIterator<string>;
+}
+
+export class Part1 implements Parser {
+    parse(line: string): IterableIterator<string> {
+        return parse_part1(line);
+    }
+
+}
+
+export class Part2 implements Parser {
+    parse(line: string): IterableIterator<string> {
+        return parse_part2(line);
+    }
+
+}
