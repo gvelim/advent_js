@@ -15,13 +15,13 @@ const scan_word = (buf: string): Option<string> => {
     return none;
 }
 
-export function* parse_part1(line:string): IterableIterator<string> {
+ function* parse_part1(line:string): IterableIterator<string> {
     for(let c of line) {
         if( isDigit(c) ) yield c;
     }
 }
 
-export function parse_part2(line:string): IterableIterator<string> {
+function parse_part2(line:string): IterableIterator<string> {
     let l = 0;
     let i = 0;
 
@@ -54,14 +54,14 @@ export interface Parser {
     parse(line:string): IterableIterator<string>;
 }
 
-export class Part1 implements Parser {
+export class Part1Parser implements Parser {
     parse(line: string): IterableIterator<string> {
         return parse_part1(line);
     }
 
 }
 
-export class Part2 implements Parser {
+export class Part2Parser implements Parser {
     parse(line: string): IterableIterator<string> {
         return parse_part2(line);
     }
