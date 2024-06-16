@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
-import {Parser, Part1Parser, Part2Parser} from "../day1/parser";
+import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from "../day1/parser";
 
-let buf = await fs.readFile("./day1/input.txt", { encoding: "ascii" });
+let buf = await fs.readFile("./day1/sample.txt", { encoding: "ascii" });
 
 const summarise = (buffer: string, parser: Parser) => {
     let sum = 0;
@@ -15,9 +15,13 @@ const summarise = (buffer: string, parser: Parser) => {
 };
 
 console.time();
-console.log("\nTotal = " + summarise(buf, new Part1Parser()));
+console.log("\nPart1ParserGen Total = " + summarise(buf, new Part1ParserGen()));
 console.timeEnd();
 
 console.time();
-console.log("\nTotal = " + summarise(buf, new Part2Parser()));
+console.log("\nPart2ParserIter Total = " + summarise(buf, new Part2ParserIter()));
+console.timeEnd();
+
+console.time();
+console.log("\nPart2ParserGen Total = " + summarise(buf, new Part2ParserGen()));
 console.timeEnd();
