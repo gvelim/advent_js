@@ -6,11 +6,11 @@ const isDigit = (char: string): boolean => {
 }
 
 const scan_word = (buf: string): Option<string> => {
-    const TXT = ["one","two","three","four","five","six","seven","eight","nine"];
+    const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
 
     for( let i = 0; i < TXT.length; i++ ) {
         if( buf.endsWith(TXT[i]) )
-            return some((i+1).toString());
+            return some(i.toString());
     }
     return none;
 }
