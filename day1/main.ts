@@ -3,14 +3,20 @@ import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from "../day1/p
 
 let buf = await fs.readFile("./day1/input.txt", { encoding: "ascii" });
 
-const summarise = (buffer: string, parser: Parser) => {
+const summarise = (buffer: string, parser: Parser): number => {
     let sum = 0;
-    for (const line of buffer.split("\n")) {
-        let buf = [];
-        for (let n of parser.parse(line)) buf.push(n);
-        sum += buf[0] ? parseInt(buf[0] + buf.pop()) : 0;
-        // console.log(line + " = " + sum);
-    }
+    buffer
+        .split("\n")
+        .forEach( (line) => {
+            let buf = new Array<string>;
+            Array
+                .from(parser.parse(line))
+                .forEach(
+                    (n) => buf.push(n)
+                );
+            sum += buf[0] ? parseInt(buf[0] + buf.pop()) : 0;
+            // console.log(line + " = " + sum);
+        });
     return sum;
 };
 
