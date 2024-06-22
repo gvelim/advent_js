@@ -1,4 +1,4 @@
-class Run {
+export class Run {
     red? :number;
     green? :number;
     blue? :number;
@@ -17,6 +17,11 @@ class Run {
                     }
                 }
             )
+    }
+    possible(run: Run): boolean {
+        return (this.red ? run.red?this.red <= run.red:true : true)
+            && (this.green ? run.green?this.green <= run.green:true : true)
+            && (this.blue ? run.blue?this.blue <= run.blue:true : true)
     }
 }
 
