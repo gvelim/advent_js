@@ -8,14 +8,20 @@ let games = new InputParse().parse(buf);
 
 if( games._tag === "None" ) {}
 else {
-    let run = new Run("12 red, 13 green, 14 blue");
+    const ref_run = new Run("12 red, 13 green, 14 blue");
     let sum = games.value
         .map((game) =>
-            game.runs
-                .map((r) => run.possible(r))
-                .reduce((acc, res) => acc && res)
-                ? game.id : 0
+            game.runs.every((r) => r.possible(ref_run)) ? game.id : 0
         )
-        .reduce((acc, res) => acc + res);
-    console.log(sum);
+        .reduce((sum, id) => sum + id);
+    console.log("Part 1: " + sum);
+
+    sum = games.value
+        .map((game) =>
+            game.runs
+                .reduce((max, run) => max.maximum(run))
+                .power()
+        )
+        .reduce((sum, pwr) => sum + pwr)
+    console.log("Part 2: " + sum);
 }

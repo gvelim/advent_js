@@ -1,10 +1,12 @@
+import {boolean, number} from "fp-ts";
+
 export class Run {
     red? :number;
     green? :number;
     blue? :number;
 
     // 1 red, 2 green, 6 blue
-    constructor(input: string) {
+    constructor(input: string = "") {
         input
             .split(",")
             .forEach(
@@ -18,10 +20,25 @@ export class Run {
                 }
             )
     }
+
     possible(run: Run): boolean {
-        return (this.red ? run.red?this.red <= run.red:true : true)
-            && (this.green ? run.green?this.green <= run.green:true : true)
-            && (this.blue ? run.blue?this.blue <= run.blue:true : true)
+        return (this.red && run.red ? this.red <= run.red : true)
+            && (this.green && run.green ? this.green <= run.green : true)
+            && (this.blue && run.blue ? this.blue <= run.blue : true)
+    }
+
+    maximum(r: Run): Run {
+        let m = new Run();
+        m.red = this.red && r.red ? (this.red > r.red ? this.red : r.red) : this.red || r.red;
+        m.green = this.green && r.green ? (this.green > r.green ? this.green : r.green) : this.green || r.green;
+        m.blue = this.blue && r.blue ? (this.blue > r.blue ? this.blue : r.blue) : this.blue || r.blue;
+        return m;
+    }
+
+    power(): number {
+        return (this.red ? this.red : 1)
+            * (this.green ? this.green : 1)
+            * (this.blue ? this.blue : 1);
     }
 }
 
