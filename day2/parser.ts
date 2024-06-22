@@ -7,7 +7,7 @@ interface Parser<T> {
 
 class GameParser implements Parser<Game> {
     parse(input: string): Option<Game> {
-        return input.split(":").length === 2 ? some(new Game(input)) : none;
+        return input.search(/^(G|g)ame\s+\d+\s*:/) >= 0 ? some(new Game(input)) : none;
     }
 }
 

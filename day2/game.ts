@@ -9,9 +9,10 @@ export class Run {
     constructor(input: string = "") {
         input
             .split(",")
+            // 1 red
             .forEach(
                 (marbles) => {
-                    const r = marbles.trim().split(" ");
+                    const r = marbles.trim().split(/\s+/);
                     switch(r[1]) {
                         case "red": this.red = parseInt(r[0]); break;
                         case "green": this.green = parseInt(r[0]); break;
@@ -21,13 +22,13 @@ export class Run {
             )
     }
 
-    possible(run: Run): boolean {
+    is_possible(run: Run): boolean {
         return (this.red && run.red ? this.red <= run.red : true)
             && (this.green && run.green ? this.green <= run.green : true)
             && (this.blue && run.blue ? this.blue <= run.blue : true)
     }
 
-    maximum(r: Run): Run {
+    fewest_feasible(r: Run): Run {
         let m = new Run();
         m.red = this.red && r.red ? (this.red > r.red ? this.red : r.red) : this.red || r.red;
         m.green = this.green && r.green ? (this.green > r.green ? this.green : r.green) : this.green || r.green;
@@ -50,7 +51,7 @@ export class Game {
     constructor(input: string) {
         let g = input.split(":");
         // Game 1
-        this.id = parseInt(g[0].split(" ")[1]);
+        this.id = parseInt(g[0].trim().split(/\s+/)[1]);
         // 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
         g[1].trim()
             .split(";")
