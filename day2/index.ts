@@ -3,7 +3,7 @@ import { parse_input, parse_run } from "./parser";
 import { Run } from "./game";
 
 let games = parse_input(
-        await fs.readFile("./day2/sample.txt", { encoding: "ascii" })
+        await fs.readFile("./day2/input.txt", { encoding: "ascii" })
     );
 
 if( games._tag === "None" ) {}
