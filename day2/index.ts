@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import { parse_input, parse_run } from "./parser";
-import { Run } from "./game";
+import { Option } from "fp-ts/Option";
 
 let games = parse_input(
         await fs.readFile("./day2/input.txt", { encoding: "ascii" })
