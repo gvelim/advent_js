@@ -31,7 +31,7 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
 
     for( let i = 0; i < line.length; i++ ) {
         if( isDigit(line[i]) ) {
-            l = i+1,
+            l = i+1;
             yield line[i];
         } else {
             let ret = pipe( line.substring(l,i+1), scan_word );
@@ -55,7 +55,7 @@ function parse_part2_iter(line:string): IterableIterator<string> {
             let ret: string = "";
             while( ret === "" && i < line.length) {
                 if( isDigit(line[i]) ) {
-                    l = i+1,
+                    l = i+1;
                     ret = line[i]
                 } else
                     pipe(
