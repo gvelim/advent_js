@@ -10,9 +10,10 @@ if( games._tag === "None" ) {}
 else {
     console.time();
     const ref_run = parse_run("12 red, 13 green, 14 blue");
-    let sum = games.value
-        .map( (game) => game.runs.every((r) => r.is_possible(ref_run)) ? game.id : 0 )
-        .reduce( (sum, id) => sum + id );
+    let sum = (ref_run._tag === "Some") ? games.value
+        .map( (game) => game.runs.every((r) => r.is_possible(ref_run.value)) ? game.id : 0 )
+        .reduce( (sum, id) => sum + id )
+        : -1;
     console.log("Part 1: " + sum);
     console.timeEnd();
 

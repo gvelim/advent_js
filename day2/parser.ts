@@ -1,7 +1,11 @@
 import { Option, none, some } from "fp-ts/lib/Option";
 import { Game, Run } from "./game";
+import {option} from "fp-ts";
 
-export const parse_run = (inp:string) : Run  => {
+export const parse_run = (inp:string) : Option<Run>  => {
+    // incorrectly formatted game string
+    if( inp.search(/^(\s*\d+\s+(blue|red|green),?)+$/) === -1 ) return none;
+
     let run = new Run();
     inp.split(",")
         // 1 red
@@ -15,14 +19,15 @@ export const parse_run = (inp:string) : Run  => {
                 }
             }
         )
-    return run
+    return some(run)
 }
 
 const parse_runs = (inp: string): Array<Run> => {
     let runs: Array<Run> = [];
     inp.split(";")
         .map(parse_run)
-        .forEach((r) => runs.push(r));
+        .filter((r) => r._tag === "Some")
+        .forEach((r) => runs.push(r.value));
     return runs;
 }
 
