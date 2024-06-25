@@ -27,7 +27,8 @@ const parse_runs = (inp: string): Array<Run> => {
     inp.split(";")
         .map(parse_run)
         .filter((r) => r._tag === "Some")
-        .forEach((r) => runs.push(r.value));
+        .map( (r) => r.value )
+        .forEach((r) => runs.push(r));
     return runs;
 }
 
@@ -47,7 +48,9 @@ export const parse_input = (input: string): Option<Array<Game>> => {
     input
         .split("\n")
         .map(parse_game)
-        .forEach( (game) => game._tag === "Some" ? games.push(game.value) : {} );
+        .filter( (game) => game._tag === "Some" )
+        .map( (game) => game.value )
+        .forEach( (game) =>  games.push(game) );
 
     return games.length !== 0 ? some(games) : none;
 }
