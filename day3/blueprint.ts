@@ -18,7 +18,7 @@ export class Part {
         this.id = id;
         this.pos = new Range(start,end);
     }
-    is_touching(p: Part, step: number): boolean {
+    is_touching(p: Symbol, step: number): boolean {
         let area = new Range(this.pos.start-1, this.pos.end+1)
         return area.contains(p.pos, step) // under + diagonal
             || area.contains(p.pos, -step) // above + diagonal
@@ -61,4 +61,4 @@ export class Blueprint {
 
         return new Blueprint( input.search("\n"), parts, symbols );
     }
-};
+}
