@@ -1,10 +1,10 @@
 import * as fs from "node:fs/promises";
-import { Blueprint, Part } from "./blueprint";
-import {throws} from "node:assert";
+import { Blueprint } from "./blueprint";
 
 async function load_data() {
     return await fs.readFile("./day3/sample.txt",{ encoding: "ascii"})
 }
+
 test("Blueprint::parse", () => {
     load_data().then(
         (input) => {
