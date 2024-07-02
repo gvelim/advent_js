@@ -28,6 +28,26 @@ export class EnginePart {
 
 export type Symbol = EnginePart;
 
+export function gears_iter(bp: Blueprint): IterableIterator<EnginePart[]> {
+    let i = 0;
+    return {
+        next(): IteratorResult<EnginePart[]> {
+            let ret: EnginePart[] = [];
+            {
+                let s = bp.symbols[i];
+                ret = (s.id === "*") ? bp.parts.filter((p) => p.is_touching(s,bp.step)) : [];
+                i++;
+            } while(ret.length === 2 && i < bp.symbols.length)
+
+            return {
+                done: bp.symbols.length < i,
+                value: ret,
+            };
+        },
+        [Symbol.iterator]() { return this }
+    }
+}
+
 export class Blueprint {
     #step: number;
     parts: Array<EnginePart>;
@@ -38,6 +58,8 @@ export class Blueprint {
         this.parts = parts;
         this.symbols = symbols
     }
+
+    get step() { return this.#step }
 
     sum_parts(): number {
         return this.parts

@@ -1,9 +1,22 @@
 import * as fs from "node:fs/promises";
-import { Blueprint } from "./blueprint";
+import { Blueprint, gears_iter } from "./blueprint";
 
 async function load_data() {
     return await fs.readFile("./day3/sample.txt",{ encoding: "ascii"})
 }
+
+test("Blueprint::Iterator", () => {
+    load_data().then( (input) => {
+        let iter = gears_iter(Blueprint.parse(input))
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+        expect(iter.next().value).toHaveLength(2);
+    })
+});
 
 test("Blueprint::parse", () => {
     load_data().then(
