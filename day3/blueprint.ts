@@ -42,13 +42,45 @@ export class Blueprint {
     get step() { return this.#step }
 
     sum_parts(): number {
-        return this.parts
-            .map((p) => this.symbols.some((s) => p.is_touching(s, this.#step)) ? p.id : "0")
-            .map((id) => parseInt(id))
-            .reduce((sum,id) => sum + id)
+        let sum = 0;
+        for(let part of this.engine_parts())
+            sum += parseInt(part.id)
+        return sum;
+
+        // return this.parts
+        //     .map((p) => this.symbols.some((s) => p.is_touching(s, this.#step)) ? p.id : "0")
+        //     .map((id) => parseInt(id))
+        //     .reduce((sum,id) => sum + id)
+    }
+
+    engine_parts(): IterableIterator<EnginePart> {
+        let iter = this.parts.values();
+        let bp = this;
+
+        return {
+            next(): IteratorResult<EnginePart> {
+                let p = iter.next();
+                while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp.#step)) ) {
+                    p = iter.next();
+                }
+                return {
+                    done: p.done,
+                    value: p.value
+                }
+            },
+            [Symbol.iterator]() { return this }
+        }
+
     }
 
     sum_gears_product(): number {
+        // let sum = 0;
+        // for(let gear of this.gears("*")) {
+        //     sum += gear
+        //         .map((p) => parseInt(p.id))
+        //         .reduce((p,a) => p * a);
+        // }
+        // return sum;
         return this.symbols
             .filter((s) => s.id === "*")
             .map((s) => this.parts.filter((p) => p.is_touching(s,this.#step)))
@@ -58,7 +90,7 @@ export class Blueprint {
             .reduce((sum, parts) => sum + parts)
     }
 
-    gears(): IterableIterator<EnginePart[]> {
+    gears(symbol: string): IterableIterator<EnginePart[]> {
         let iter = this.symbols.values();
         let bp = this;
 
@@ -66,13 +98,15 @@ export class Blueprint {
             next(): IteratorResult<EnginePart[]> {
                 let ret: EnginePart[] = [];
                 let s = iter.next();
-                while(ret.length !== 2 && !s.done) {
-                    ret = (s.value.id === "*") ? bp.parts.filter((p) => p.is_touching(s.value,bp.step)) : [];
+                while(!s.done && ret.length !== 2) {
+                    ret = (s.value.id === symbol)
+                        ? bp.parts.filter((p) => p.is_touching(s.value,bp.step))
+                        : [];
                     s = iter.next();
                 };
 
                 return {
-                    done: s.done,
+                    done: ret.length === 0,
                     value: ret,
                 };
             },
