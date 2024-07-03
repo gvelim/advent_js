@@ -28,26 +28,6 @@ export class EnginePart {
 
 export type Symbol = EnginePart;
 
-export function gears_iter(bp: Blueprint): IterableIterator<EnginePart[]> {
-    let i = 0;
-    return {
-        next(): IteratorResult<EnginePart[]> {
-            let ret: EnginePart[] = [];
-            {
-                let s = bp.symbols[i];
-                ret = (s.id === "*") ? bp.parts.filter((p) => p.is_touching(s,bp.step)) : [];
-                i++;
-            } while(ret.length === 2 && i < bp.symbols.length)
-
-            return {
-                done: bp.symbols.length < i,
-                value: ret,
-            };
-        },
-        [Symbol.iterator]() { return this }
-    }
-}
-
 export class Blueprint {
     #step: number;
     parts: Array<EnginePart>;
@@ -76,6 +56,28 @@ export class Blueprint {
             .map((parts) => parts.map((p) => parseInt(p.id)))
             .map((parts) => parts.reduce((p,a) => p * a))
             .reduce((sum, parts) => sum + parts)
+    }
+
+    gears(): IterableIterator<EnginePart[]> {
+        let iter = this.symbols.values();
+        let bp = this;
+
+        return {
+            next(): IteratorResult<EnginePart[]> {
+                let ret: EnginePart[] = [];
+                let s = iter.next();
+                while(ret.length !== 2 && !s.done) {
+                    ret = (s.value.id === "*") ? bp.parts.filter((p) => p.is_touching(s.value,bp.step)) : [];
+                    s = iter.next();
+                };
+
+                return {
+                    done: s.done,
+                    value: ret,
+                };
+            },
+            [Symbol.iterator]() { return this }
+        }
     }
 
     static parse(input: string): Blueprint {
