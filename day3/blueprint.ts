@@ -29,24 +29,48 @@ export class EnginePart {
 export type Symbol = EnginePart;
 
 export class Blueprint {
-    #step: number;
+    readonly _step: number;
     parts: Array<EnginePart>;
     symbols: Array<Symbol>;
 
     constructor(step: number, parts: EnginePart[], symbols: Symbol[]) {
-        this.#step = step;
+        this._step = step;
         this.parts = parts;
         this.symbols = symbols
     }
 
-    get step() { return this.#step }
+    get step() { return this._step }
 
     sum_parts(): number {
-        return this.parts
-            .map((p) => this.symbols.some((s) => p.is_touching(s, this.#step)) ? p.id : "0")
-            .map((id) => parseInt(id))
-            .reduce((sum,id) => sum + id)
+        let sum = 0;
+        for(let part of this.engine_parts())
+            sum += parseInt(part.id)
+        return sum;
+        // return this.parts
+        //     .map((p) => this.symbols.some((s) => p.is_touching(s, this.#step)) ? p.id : "0")
+        //     .map((id) => parseInt(id))
+        //     .reduce((sum,id) => sum + id)
     }
+
+    engine_parts(): IterableIterator<EnginePart> {
+        let iter = this.parts.values();
+        let bp = this;
+
+        return {
+            next(): IteratorResult<EnginePart> {
+                let p = iter.next();
+                while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp._step)) ) {
+                    p = iter.next();
+                }
+                return {
+                    done: p.done,
+                    value: p.value
+                }
+            },
+            [Symbol.iterator]() { return this }
+        }
+    }
+
 
     sum_gears_product(): number {
         let sum = 0;
@@ -79,7 +103,7 @@ export class Blueprint {
                         break;
                     else
                         s = iter.next();
-                };
+                }
                 return {
                     done: s.done,
                     value: ret,
