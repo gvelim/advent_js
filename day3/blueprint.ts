@@ -41,17 +41,6 @@ export class Blueprint {
 
     get step() { return this._step }
 
-    sum_parts(): number {
-        let sum = 0;
-        for(let part of this.engine_parts())
-            sum += parseInt(part.id)
-        return sum;
-        // return this.parts
-        //     .map((p) => this.symbols.some((s) => p.is_touching(s, this.#step)) ? p.id : "0")
-        //     .map((id) => parseInt(id))
-        //     .reduce((sum,id) => sum + id)
-    }
-
     engine_parts(): IterableIterator<EnginePart> {
         let iter = this.parts.values();
         let bp = this;
@@ -69,24 +58,6 @@ export class Blueprint {
             },
             [Symbol.iterator]() { return this }
         }
-    }
-
-
-    sum_gears_product(): number {
-        let sum = 0;
-        for(let gear of this.gears("*")) {
-            sum += gear
-                .map((p) => parseInt(p.id))
-                .reduce((p,a) => p * a);
-        }
-        return sum;
-        // return this.symbols
-        //     .filter((s) => s.id === "*")
-        //     .map((s) => this.parts.filter((p) => p.is_touching(s,this.#step)))
-        //     .filter((parts) => parts.length === 2)
-        //     .map((parts) => parts.map((p) => parseInt(p.id)))
-        //     .map((parts) => parts.reduce((p,a) => p * a))
-        //     .reduce((sum, parts) => sum + parts)
     }
 
     gears(symbol:string): IterableIterator<EnginePart[]> {
