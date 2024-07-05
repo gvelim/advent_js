@@ -19,7 +19,7 @@ export class EnginePart {
         this.pos = new Range(start,end);
     }
     is_touching(p: Symbol, offset: number): boolean {
-        let area = new Range(this.pos.start-1, this.pos.end+1)
+        let area = new Range(this.pos.start-1, this.pos.end+1);
         return area.contains(p.pos, offset) // under + diagonal
             || area.contains(p.pos, -offset) // above + diagonal
             || area.contains(p.pos) // left or right
@@ -39,7 +39,7 @@ export class Blueprint {
         this.symbols = symbols
     }
 
-    get step() { return this._step }
+    get step() { return this._step; }
 
     engine_parts(): IterableIterator<EnginePart> {
         let iter = this.parts.values();
@@ -61,7 +61,7 @@ export class Blueprint {
     }
 
     gears(symbol:string): IterableIterator<EnginePart[]> {
-        let iter = this.symbols.values();
+        let iter = this.symbols[Symbol.iterator]();
         let bp = this;
 
         return {
