@@ -47,10 +47,12 @@ export class Blueprint {
 
         return {
             next(): IteratorResult<EnginePart> {
-                let p = iter.next();
-                while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp._step)) ) {
+                let p: IteratorResult<EnginePart>;
+
+                do
                     p = iter.next();
-                }
+                while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp.step)) );
+
                 return {
                     done: p.done,
                     value: p.value
@@ -69,11 +71,10 @@ export class Blueprint {
                 let ret: any = undefined;
                 let s = iter.next();
                 while(!s.done) {
-                    ret = (s.value.id === symbol) ? bp.parts.filter((p) => p.is_touching(s.value,bp.step)) : ret;
-                    if( ret && ret.length === 2 )
-                        break;
-                    else
-                        s = iter.next();
+                    ret = (s.value.id === symbol)
+                        ? bp.parts.filter((p) => p.is_touching(s.value,bp.step))
+                        : ret;
+                    if( ret && ret.length === 2 ) break; else s = iter.next();
                 }
                 return {
                     done: s.done,
