@@ -6,7 +6,20 @@ async function load_data() {
     return await fs.readFile("./day3/sample.txt",{ encoding: "ascii"})
 }
 
-test("Blueprint::gears::Iterator", async () => {
+test("Blueprint::engine_parts", async () => {
+    let iter = Blueprint.parse(await load_data()).engine_parts();
+    expect(iter.next().value.id).toBe("467");
+    expect(iter.next().value.id).toBe("35");
+    expect(iter.next().value.id).toBe("633");
+    expect(iter.next().value.id).toBe("617");
+    expect(iter.next().value.id).toBe("592");
+    expect(iter.next().value.id).toBe("755");
+    expect(iter.next().value.id).toBe("664");
+    expect(iter.next().value.id).toBe("598");
+    expect(iter.next().value).toBe(undefined);
+});
+
+test("Blueprint::gears", async () => {
     let iter = Blueprint.parse(await load_data()).gears("*");
     expect(iter.next().value).toHaveLength(2);
     expect(iter.next().value).toHaveLength(2);
