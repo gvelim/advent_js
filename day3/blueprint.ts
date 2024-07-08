@@ -44,7 +44,6 @@ export class Blueprint {
     engine_parts(): IterableIterator<EnginePart> {
         let iter = this.parts.values();
         let bp = this;
-
         return {
             next(): IteratorResult<EnginePart> {
                 let p: IteratorResult<EnginePart>;
@@ -69,9 +68,12 @@ export class Blueprint {
                 let s = iter.next();
                 while(!s.done) {
                     ret = (s.value.id === symbol)
-                        ? bp.parts.filter((p) => p.is_touching(s.value,bp.step))
+                        ? bp.parts.filter(
+                            (p) => p.is_touching(s.value,bp.step)
+                        )
                         : ret;
-                    if( ret && ret.length === 2 ) break; else s = iter.next();
+                    if ( ret && ret.length === 2 ) break;
+                    s = iter.next();
                 }
                 return {
                     done: s.done,
