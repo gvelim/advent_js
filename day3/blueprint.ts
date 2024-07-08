@@ -48,11 +48,8 @@ export class Blueprint {
         return {
             next(): IteratorResult<EnginePart> {
                 let p: IteratorResult<EnginePart>;
-
-                do
-                    p = iter.next();
+                do p = iter.next();
                 while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp.step)) );
-
                 return {
                     done: p.done,
                     value: p.value
