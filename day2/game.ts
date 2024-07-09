@@ -1,5 +1,3 @@
-import {number} from "fp-ts";
-
 export class Game {
     id: number = -1;
     runs: Array<Run> = [];
