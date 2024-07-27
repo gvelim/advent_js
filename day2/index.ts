@@ -1,8 +1,9 @@
 import * as fs from "node:fs/promises";
-import { parse_input, parse_run } from "./parser";
+import { parse_input, parse_run } from "./parser.ts";
 import { Option } from "fp-ts/Option";
+import { Game } from "./game.ts";
 
-let games = parse_input(
+const games = parse_input(
         await fs.readFile("./day2/input.txt", { encoding: "ascii" })
     );
 
@@ -15,11 +16,11 @@ else {
     let sum = (ref_run._tag === "Some")
         ? games.value
             .map(
-                (game) => game.runs.every(
+                (game:Game) => game.runs.every(
                     (r) => r.is_possible(ref_run.value)
                 ) ? game.id : 0
             )
-            .reduce( (sum, id) => sum + id )
+            .reduce( (sum:number, id:number) => sum + id )
         : -1;
     console.log("Part 1: " + sum);
     console.timeEnd();
@@ -27,11 +28,11 @@ else {
     console.time();
     sum = games.value
         .map(
-            (game) => game.runs.reduce(
+            (game:Game) => game.runs.reduce(
                 (few, run) => few.fewest_feasible(run)
             ).power()
         )
-        .reduce( (sum, pwr) => sum + pwr )
+        .reduce( (sum:number, pwr:number) => sum + pwr )
     console.log("Part 2: " + sum);
     console.timeEnd();
 }

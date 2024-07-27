@@ -19,7 +19,7 @@ export class EnginePart {
         this.pos = new Range(start,end);
     }
     is_touching(p: Symbol, offset: number): boolean {
-        let area = new Range(this.pos.start-1, this.pos.end+1);
+        const area = new Range(this.pos.start-1, this.pos.end+1);
         return area.contains(p.pos, offset) // under + diagonal
             || area.contains(p.pos, -offset) // above + diagonal
             || area.contains(p.pos) // left or right
@@ -42,7 +42,7 @@ export class Blueprint {
     get step() { return this._step; }
 
     engine_parts(): IterableIterator<EnginePart> {
-        let iter = this.parts.values();
+        const iter = this.parts.values();
         let bp = this;
         return {
             next(): IteratorResult<EnginePart> {
@@ -59,8 +59,8 @@ export class Blueprint {
     }
 
     gears(symbol:string): IterableIterator<EnginePart[]> {
-        let iter = this.symbols[Symbol.iterator]();
-        let bp = this;
+        const iter = this.symbols[Symbol.iterator]();
+        const bp = this;
 
         return {
             next(): IteratorResult<EnginePart[]> {
@@ -85,9 +85,9 @@ export class Blueprint {
     }
 
     *gears_gen(sym: string): IterableIterator<EnginePart[]> {
-        for(let s of this.symbols) {
+        for(const s of this.symbols) {
             if( s.id !== sym ) continue;
-            let ret = this.parts.filter((p) => p.is_touching(s,this.step));
+            const ret = this.parts.filter((p) => p.is_touching(s,this.step));
             if( ret.length !== 2 ) continue;
             yield ret;
         }
@@ -95,13 +95,13 @@ export class Blueprint {
 
     static parse(input: string): Blueprint {
         let part = "";
-        let parts = new Array<EnginePart>;
-        let symbols = new Array<Symbol>;
+        const parts = new Array<EnginePart>;
+        const symbols = new Array<Symbol>;
 
-        let map = input.split("\n").reduce((arr, line) => arr+line);
+        const map = input.split("\n").reduce((arr, line) => arr+line);
 
         for(let i = 0; i < map.length; i++) {
-            let c = map[i];
+            const c = map[i];
 
             if( c>='0' && c<='9') part += c;
             else {

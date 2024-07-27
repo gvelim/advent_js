@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "fp-ts": "npm:fp-ts@^2.16.9"
+  }
+}

@@ -17,7 +17,7 @@ export class Run implements Eq<Run> {
     }
 
     fewest_feasible(r: Run): Run {
-        let m = new Run();
+        const m = new Run();
         m.red = this.red && r.red ? (this.red > r.red ? this.red : r.red) : this.red || r.red;
         m.green = this.green && r.green ? (this.green > r.green ? this.green : r.green) : this.green || r.green;
         m.blue = this.blue && r.blue ? (this.blue > r.blue ? this.blue : r.blue) : this.blue || r.blue;

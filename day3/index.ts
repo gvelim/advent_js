@@ -1,19 +1,22 @@
 import * as fs from "node:fs/promises";
-import {Blueprint} from "./blueprint";
+import {Blueprint} from "./blueprint.ts";
 
-let buf = await fs.readFile("./day3/input.txt", {encoding: "ascii"});
+const buf = await fs.readFile("./day3/input.txt", {encoding: "ascii"});
+const bp = Blueprint.parse(buf);
 
-let bp = Blueprint.parse(buf);
-
+console.time();
 console.log("Part 1:", sum_parts(bp), sum_parts_raw(bp));
+console.timeEnd();
+console.time();
 console.log("Part 2:", sum_gears_product(bp),sum_gears_product_raw(bp));
+console.timeEnd();
 
 // End of program here
 // ========== function declarations =========
 
 function sum_gears_product(bp:Blueprint): number {
     let sum = 0;
-    for(let gear of bp.gears("*")) {
+    for(const gear of bp.gears("*")) {
         sum += gear
             .map((p) => parseInt(p.id))
             .reduce((p,a) => p * a);

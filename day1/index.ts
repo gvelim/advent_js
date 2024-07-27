@@ -1,7 +1,7 @@
 import * as fs from "node:fs/promises";
-import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from "./parser";
+import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from "./parser.ts";
 
-let lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).split("\n");
+const lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).split("\n");
 
 const summarise = (lines: string[], parser: Parser): number => {
     let sum = 0;

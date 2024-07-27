@@ -1,5 +1,5 @@
 import {test, expect, assert} from "vitest";
-import {parse_run} from "./parser.js";
+import {parse_run} from "./parser";
 import {Option} from "fp-ts/Option";
 import {Run} from "./game.js";
 
