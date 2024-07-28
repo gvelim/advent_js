@@ -10,11 +10,11 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@types/node": "^20.14.12"
+    "@baetheus/fun": "npm:@jsr/baetheus__fun@^2.2.2",
+    "@types/node": "^20.14.12",
+    "vitest": "^2.0.4"
   },
   "devDependencies": {
-    "fp-ts": "^2.16.9",
-    "typescript": "^5.5.4",
-    "vitest": "^1.6.0"
+    "typescript": "^5.5.4"
   }
 }

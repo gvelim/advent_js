@@ -1,5 +1,6 @@
 {
   "imports": {
-    "fp-ts": "npm:fp-ts@^2.16.9"
+    "@baetheus/fun": "jsr:@baetheus/fun@^2.2.2",
+    "vitest": "npm:vitest@^2.0.4"
   }
 }

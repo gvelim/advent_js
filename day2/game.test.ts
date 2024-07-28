@@ -1,10 +1,11 @@
 import {test, expect, assert} from "vitest";
-import {parse_run} from "./parser";
-import {Option} from "fp-ts/Option";
-import {Run} from "./game.js";
+import {parse_run} from "./parser.ts";
+import {Option} from "@baetheus/fun/option";
+import {struct} from "@baetheus/fun/comparable";
+import {Run} from "./game.ts";
 
 function unwrap<T>(val: Option<T>) : T | undefined {
-    return val._tag === "Some" ? val.value : undefined;
+    return val.tag === "Some" ? val.value : undefined;
 }
 
 // try test case as nested array
@@ -36,7 +37,7 @@ test("game::fewest_feasible", () => {
         assert.ok(run);
         return run && fewest?.fewest_feasible(run);
     });
-    assert.ok(f && t?.equals(t,f));
+    assert.ok(t && f && struct(Run).compare({prototype:t})({prototype:f}));
 });
 
 // try test case as object

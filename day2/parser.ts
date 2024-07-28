@@ -1,5 +1,5 @@
-import { Option, none, some } from "fp-ts/Option";
 import { Game, Run } from "./game.ts";
+import { Option, some, none } from "@baetheus/fun/option";
 
 export const parse_run = (inp:string) : Option<Run>  => {
     // incorrectly formatted game string
@@ -25,7 +25,7 @@ const parse_runs = (inp: string): Array<Run> => {
     const runs: Array<Run> = [];
     inp.split(";")
         .map(parse_run)
-        .filter((r) => r._tag === "Some")
+        .filter((r) => r.tag === "Some")
         .map( (r) => r.value )
         .forEach((r) => runs.push(r));
     return runs;
@@ -47,7 +47,7 @@ export const parse_input = (input: string): Option<Array<Game>> => {
     input
         .split("\n")
         .map(parse_game)
-        .filter( (game) => game._tag === "Some" )
+        .filter( (game) => game.tag === "Some" )
         .map( (game) => game.value )
         .forEach( (game) =>  games.push(game) );
 

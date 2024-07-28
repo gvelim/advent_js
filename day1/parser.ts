@@ -1,5 +1,5 @@
-import {Option, some, none, map} from "fp-ts/Option";
-import {pipe} from "fp-ts/function";
+import {Option, some, none, map} from "jsr:@baetheus/fun/option";
+import {pipe} from "jsr:@baetheus/fun/fn";
 
 const isDigit = (char: string): boolean => {
     return char >= '0' && char<= '9'

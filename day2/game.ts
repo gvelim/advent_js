@@ -1,11 +1,11 @@
-import {Eq} from "fp-ts/Eq";
+import {Comparable, Compare} from "jsr:@baetheus/fun/comparable";
 
 export class Game {
     id: number = -1;
     runs: Array<Run> = [];
 }
 
-export class Run implements Eq<Run> {
+export class Run implements Comparable<Run> {
     red? :number;
     green? :number;
     blue? :number;
@@ -30,7 +30,7 @@ export class Run implements Eq<Run> {
             * (this.blue ? this.blue : 1);
     }
 
-    equals(x: Run, y: Run): boolean {
-        return (x.red === y.red) && (x.green === y.green) && (x.blue === y.blue);
+    compare(y: Run): (x: Run) => boolean {
+        return (x: Run) =>  (x.red === y.red) && (x.green === y.green) && (x.blue === y.blue);
     }
 }
