@@ -6,8 +6,8 @@ const lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).spl
 const summarise = (lines: string[], parser: Parser): number => {
     let sum = 0;
     lines.forEach( (line) => {
-        let buf = new Array<string>;
-        for(let n of parser.parse(line)) buf.push(n);
+        const buf = new Array<string>;
+        for(const n of parser.parse(line)) buf.push(n);
         sum += buf[0] ? parseInt(buf[0] + buf.pop()) : 0;
         // console.log(line + " = " + sum);
     });

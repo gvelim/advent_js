@@ -43,12 +43,13 @@ export class Blueprint {
 
     engine_parts(): IterableIterator<EnginePart> {
         const iter = this.parts.values();
-        let bp = this;
+        const symbols = this.symbols;
+        const step = this._step;
         return {
             next(): IteratorResult<EnginePart> {
                 let p: IteratorResult<EnginePart>;
                 do p = iter.next();
-                while(!p.done && !bp.symbols.some((s) => p.value.is_touching(s, bp.step)) );
+                while(!p.done && !symbols.some((s) => p.value.is_touching(s, step)) );
                 return {
                     done: p.done,
                     value: p.value
@@ -60,7 +61,8 @@ export class Blueprint {
 
     gears(symbol:string): IterableIterator<EnginePart[]> {
         const iter = this.symbols[Symbol.iterator]();
-        const bp = this;
+        const parts = this.parts;
+        const step = this._step;
 
         return {
             next(): IteratorResult<EnginePart[]> {
@@ -68,8 +70,8 @@ export class Blueprint {
                 let s = iter.next();
                 while(!s.done) {
                     ret = (s.value.id === symbol)
-                        ? bp.parts.filter(
-                            (p) => p.is_touching(s.value,bp.step)
+                        ? parts.filter(
+                            (p) => p.is_touching(s.value, step)
                         )
                         : ret;
                     if ( ret && ret.length === 2 ) break;

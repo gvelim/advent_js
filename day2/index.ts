@@ -1,6 +1,5 @@
 import * as fs from "node:fs/promises";
 import { parse_input, parse_run } from "./parser.ts";
-import { Option } from "fp-ts/Option";
 import { Game } from "./game.ts";
 
 const games = parse_input(

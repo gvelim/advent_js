@@ -18,7 +18,7 @@ const scan_word = (buf: string): Option<string> => {
 // Given a string, return one number at a time
 // Generator implementation
 function* parse_part1(line:string): IterableIterator<string> {
-    for(let c of line) {
+    for(const c of line) {
         if( isDigit(c) ) yield c;
     }
 }
@@ -34,7 +34,7 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
             l = i+1;
             yield line[i];
         } else {
-            let ret = pipe( line.substring(l,i+1), scan_word );
+            const ret = pipe( line.substring(l,i+1), scan_word );
             if( ret._tag === "Some" ) {
                 l = i;
                 yield ret.value;
