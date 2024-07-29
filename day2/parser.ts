@@ -1,5 +1,5 @@
-import { Game, Run } from "./game.ts";
-import { Option, some, none } from "@baetheus/fun/option";
+import { Game, Run } from './game.ts';
+import { Option, some, none } from '@baetheus/fun/option';
 
 export const parse_run = (inp:string) : Option<Run>  => {
     // incorrectly formatted game string

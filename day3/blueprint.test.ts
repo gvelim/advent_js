@@ -1,6 +1,6 @@
-import {expect, test} from "vitest";
-import * as fs from "node:fs/promises";
-import { Blueprint } from "./blueprint.ts";
+import {expect, test} from 'vitest';
+import * as fs from 'node:fs/promises';
+import { Blueprint } from './blueprint.ts';
 
 async function load_data() {
     return await fs.readFile("./day3/sample.txt",{ encoding: "ascii"})
@@ -34,11 +34,9 @@ test("Blueprint::gears::Generator", async () => {
 });
 
 test("Blueprint::parse", async () => {
-    return load_data().then((input) => {
-        const bp = Blueprint.parse(input)
-        expect(bp.parts.length).toBe(10);
-        expect(bp.symbols.length).toBe(6);
-    });
+    const bp = Blueprint.parse(await load_data())
+    expect(bp.parts.length).toBe(10);
+    expect(bp.symbols.length).toBe(6);
 });
 
 test( "Part::is_touching()", async () => {

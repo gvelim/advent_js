@@ -1,20 +1,16 @@
 {
   "name": "advent_js",
   "version": "1.0.0",
-  "description": "advent of code 2024",
+  "author": "",
   "main": "index.js",
+  "description": "advent of code 2024",
+  "license": "ISC",
   "scripts": {
     "test": "vitest --run"
   },
-  "author": "",
-  "license": "ISC",
   "type": "module",
   "dependencies": {
     "@baetheus/fun": "npm:@jsr/baetheus__fun@^2.2.2",
-    "@types/node": "^20.14.12",
     "vitest": "^2.0.4"
-  },
-  "devDependencies": {
-    "typescript": "^5.5.4"
   }
 }

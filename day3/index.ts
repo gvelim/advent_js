@@ -1,5 +1,5 @@
-import * as fs from "node:fs/promises";
-import {Blueprint} from "./blueprint.ts";
+import * as fs from 'node:fs/promises';
+import {Blueprint} from './blueprint.ts';
 
 const buf = await fs.readFile("./day3/input.txt", {encoding: "ascii"});
 const bp = Blueprint.parse(buf);
@@ -36,7 +36,7 @@ function sum_gears_product_raw(bp:Blueprint): number {
 
 function sum_parts(bp:Blueprint): number {
     let sum = 0;
-    for(let part of bp.engine_parts())
+    for(const part of bp.engine_parts())
         sum += parseInt(part.id)
     return sum;
 }

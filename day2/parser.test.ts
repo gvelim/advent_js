@@ -1,5 +1,5 @@
-import {test,expect} from "vitest";
-import {parse_run} from "./parser.ts";
+import {test,expect} from 'vitest';
+import {parse_run} from './parser.ts';
 
 test("parser::parse_run", () => {
     expect(parse_run("1 green, 3 red, 6 blue").tag).toBe("Some");

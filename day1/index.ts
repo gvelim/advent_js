@@ -1,5 +1,5 @@
-import * as fs from "node:fs/promises";
-import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from "./parser.ts";
+import * as fs from 'node:fs/promises';
+import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from './parser.ts';
 
 const lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).split("\n");
 

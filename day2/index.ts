@@ -1,6 +1,6 @@
-import * as fs from "node:fs/promises";
-import { parse_input, parse_run } from "./parser.ts";
-import { Game } from "./game.ts";
+import * as fs from 'node:fs/promises';
+import { parse_input, parse_run } from './parser.ts';
+import { Game } from './game.ts';
 
 const games = parse_input(
         await fs.readFile("./day2/input.txt", { encoding: "ascii" })

@@ -1,8 +1,8 @@
-import {test, expect, assert} from "vitest";
-import {parse_run} from "./parser.ts";
-import {Option} from "@baetheus/fun/option";
-import {struct} from "@baetheus/fun/comparable";
-import {Run} from "./game.ts";
+import {test, expect, assert} from 'vitest';
+import {parse_run} from './parser.ts';
+import {Option} from '@baetheus/fun/option';
+import {struct} from '@baetheus/fun/comparable';
+import {Run} from './game.ts';
 
 function unwrap<T>(val: Option<T>) : T | undefined {
     return val.tag === "Some" ? val.value : undefined;
@@ -16,7 +16,7 @@ test.each([
     [unwrap(parse_run("4 red, 22 green, 6 blue")), false],
     [unwrap(parse_run("14 red, 22 green, 16 blue")), false],
     [unwrap(parse_run("4 red, 2 green, 16 blue")), false]
-])('game::is_possible: %o => %o', (inp, out) => {
+])('game::is_possible: %o => %o', (inp:Run|undefined, out:boolean) => {
         const t = unwrap(parse_run("12 red, 13 green, 14 blue"));
         assert.ok(inp, "game::is_possible => Ops! got undefined instead of Run object");
         expect(t && inp && inp.is_possible(t)).toBe(out);
@@ -32,12 +32,13 @@ test("game::fewest_feasible", () => {
         unwrap(parse_run("4 red, 2 green, 16 blue"))
     ];
 
-    const t = unwrap(parse_run("14 red, 22 green, 16 blue"));
+    const t = unwrap(parse_run("1 red, 22 green, 16 blue"));
     const f = r.reduce((fewest, run) => {
         assert.ok(run);
         return run && fewest?.fewest_feasible(run);
     });
-    assert.ok(t && f && struct(Run).compare({prototype:t})({prototype:f}));
+    const { compare } = struct(Run);
+    assert.ok(t && f && compare(t)(f));
 });
 
 // try test case as object

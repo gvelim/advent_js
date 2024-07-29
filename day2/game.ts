@@ -1,4 +1,4 @@
-import {Comparable, Compare} from "jsr:@baetheus/fun/comparable";
+import {Comparable} from '@baetheus/fun/comparable';
 
 export class Game {
     id: number = -1;
