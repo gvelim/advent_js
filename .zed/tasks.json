@@ -1,0 +1,14 @@
+[
+  // {
+  //   "label": "npx vitest run -t \"$ZED_SYMBOL\"",
+  //   "command": "npx vitest run -t",
+  //   "args": ["\"$ZED_SYMBOL\" $ZED_FILE"],
+  //   "tags": ["ts-test", "js-test"]
+  // },
+  {
+    "label": "deno run -A npm:vitest --run --pool=threads --no-file-parallelism \"$ZED_SYMBOL\\ -t",
+    "command": "deno run -A npm:vitest --run --pool=threads --no-file-parallelism -t",
+    "args": ["\"$ZED_SYMBOL\" $ZED_FILE"],
+    "tags": ["ts-test", "js-test"]
+  }
+]
