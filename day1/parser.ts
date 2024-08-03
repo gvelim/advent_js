@@ -12,7 +12,7 @@ const scan_word = (buf: string): Option<string> => {
         if( buf.endsWith(TXT[i]) )
             return some(i.toString());
     }
-    return none;
+    return none();
 }
 
 // Given a string, return one number at a time
