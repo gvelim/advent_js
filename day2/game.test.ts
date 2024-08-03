@@ -27,7 +27,7 @@ test("game::fewest_feasible", () => {
         Option.getOrUndefined(parse_run("4 red, 2 green, 16 blue"))
     ];
 
-    const t = Option.getOrUndefined(parse_run("1 red, 22 green, 16 blue"));
+    const t = Option.getOrUndefined(parse_run("14 red, 22 green, 16 blue"));
     const f = r.reduce((fewest, run) => {
         assert.ok(run, "game::fewest_feasible => Ops! got undefined instead of Run object");
         return run && fewest?.fewest_feasible(run);
