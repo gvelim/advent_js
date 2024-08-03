@@ -6,11 +6,11 @@
   "description": "advent of code 2024",
   "license": "ISC",
   "scripts": {
-    "test": "vitest --run --pool=threads --no-file-parallelism"
+    "test": "vitest --run "
   },
   "type": "module",
   "dependencies": {
-    "@baetheus/fun": "npm:@jsr/baetheus__fun",
-    "vitest": "^2.0.4"
+    "effect": "^3.6.0",
+    "vitest": "^2.0.5"
   }
 }

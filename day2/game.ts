@@ -1,3 +1,5 @@
+import { Equivalence } from 'effect';
+
 export class Game {
     id: number = -1;
     runs: Array<Run> = [];
@@ -7,6 +9,14 @@ export class Run {
     red? :number;
     green? :number;
     blue? :number;
+
+    static equals = Equivalence.make(
+        (t:Run, f:Run) => t.red === f.red && t.blue === f.blue && t.green === f.green
+    );
+
+    equals(other:Run): boolean {
+        return Run.equals(this,other)
+    };
 
     is_possible(run: Run): boolean {
         return (this.red && run.red ? this.red <= run.red : true)
