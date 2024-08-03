@@ -1,6 +1,6 @@
 import {test, expect, assert} from 'vitest';
 import {parse_run} from './parser.ts';
-import { Option } from 'effect';
+import {Option, Equal, Data} from 'effect';
 import {Run} from './game.ts';
 
 // try test case as nested array
@@ -32,7 +32,8 @@ test("game::fewest_feasible", () => {
         assert.ok(run, "game::fewest_feasible => Ops! got undefined instead of Run object");
         return run && fewest?.fewest_feasible(run);
     });
-    expect(t && f && t.equals(f)).toBe(true)
+    expect(t && f && Equal.equals(Data.struct(f),Data.struct(t))).toBe(true);
+    expect(t && f && Equal.equals(f,t)).toBe(true);
 });
 
 // try test case as object

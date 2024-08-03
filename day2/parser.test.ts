@@ -10,6 +10,4 @@ test.each([
     Option.isNone(parse_run("1 green red, 6 blue")),
     Option.isNone(parse_run("green, 3 red, 6 blue")),
     Option.isNone(parse_run("1 green, 3 red, 6"))
-])("parser::parse_run", (c) => {
-        expect(c).toBe(true)
-})
+])("parser::parse_run", (c) => expect(c).toBe(true))

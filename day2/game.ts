@@ -1,22 +1,23 @@
-import { Equivalence } from 'effect';
+import { Equal as Eq, Hash } from 'effect';
 
 export class Game {
     id: number = -1;
     runs: Array<Run> = [];
 }
 
-export class Run {
+export class Run implements Eq.Equal {
     red? :number;
     green? :number;
     blue? :number;
 
-    static equals = Equivalence.make(
-        (t:Run, f:Run) => t.red === f.red && t.blue === f.blue && t.green === f.green
-    );
+    [Eq.symbol](o:Eq.Equal): boolean {
+       if( !(o instanceof Run) ) return false;
+       return Eq.equals(this.red,o.red) && Eq.equals(this.blue,o.blue) && Eq.equals(this.green,o.green);
+    }
 
-    equals(other:Run): boolean {
-        return Run.equals(this,other)
-    };
+    [Hash.symbol](): number {
+        return Hash.hash(this.toString())
+    }
 
     is_possible(run: Run): boolean {
         return (this.red && run.red ? this.red <= run.red : true)
