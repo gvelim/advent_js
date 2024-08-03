@@ -1,6 +1,3 @@
 {
-  "imports": {
-    "effect": "npm:effect@^3.6.0",
-    "vitest": "npm:vitest@^2.0.4"
-  }
+  "imports": { "effect": "npm:effect@^3.6.0", "vitest": "npm:vitest@^2.0.5" }
 }
