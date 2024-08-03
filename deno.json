@@ -1,6 +1,7 @@
 {
   "imports": {
     "@baetheus/fun": "jsr:@baetheus/fun@^2.2.2",
+    "effect": "npm:effect@^3.6.0",
     "vitest": "npm:vitest@^2.0.4"
   }
 }

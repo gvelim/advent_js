@@ -1,9 +1,9 @@
 import { Game, Run } from './game.ts';
-import { Option, some, none } from '@baetheus/fun/option';
+import { Option } from 'effect';
 
-export const parse_run = (inp:string) : Option<Run>  => {
+export const parse_run = (inp:string) : Option.Option<Run>  => {
     // incorrectly formatted game string
-    if( inp.search(/^(\s*\d+\s+(blue|red|green),?)+$/) === -1 ) return none;
+    if( inp.search(/^(\s*\d+\s+(blue|red|green),?)+$/) === -1 ) return Option.none();
 
     const run = new Run();
     inp.split(",")
@@ -18,38 +18,38 @@ export const parse_run = (inp:string) : Option<Run>  => {
                 }
             }
         )
-    return some(run)
+    return Option.some(run);
 }
 
 const parse_runs = (inp: string): Array<Run> => {
     const runs: Array<Run> = [];
     inp.split(";")
         .map(parse_run)
-        .filter((r) => r.tag === "Some")
+        .filter((r) => r._tag === "Some")
         .map( (r) => r.value )
         .forEach((r) => runs.push(r));
     return runs;
 }
 
-const parse_game = (inp: string): Option<Game> => {
+const parse_game = (inp: string): Option.Option<Game> => {
     // incorrectly formatted game string
-    if( inp.search(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green),?)*;?)+$/) === -1 ) return none;
+    if( inp.search(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green),?)*;?)+$/) === -1 ) return Option.none();
 
     const g = inp.split(":");
-    return some({
+    return Option.some({
         id : parseInt(g[0].trim().split(/\s+/)[1]),
         runs : parse_runs(g[1])
     })
 }
 
-export const parse_input = (input: string): Option<Array<Game>> => {
+export const parse_input = (input: string): Option.Option<Array<Game>> => {
     const games = new Array<Game>;
     input
         .split("\n")
         .map(parse_game)
-        .filter( (game) => game.tag === "Some" )
+        .filter( (game) => game._tag === "Some" )
         .map( (game) => game.value )
         .forEach( (game) =>  games.push(game) );
 
-    return games.length !== 0 ? some(games) : none;
+    return games.length !== 0 ? Option.some(games) : Option.none();
 }

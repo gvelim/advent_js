@@ -1,11 +1,9 @@
-import {Comparable} from '@baetheus/fun/comparable';
-
 export class Game {
     id: number = -1;
     runs: Array<Run> = [];
 }
 
-export class Run implements Comparable<Run> {
+export class Run {
     red? :number;
     green? :number;
     blue? :number;
@@ -28,9 +26,5 @@ export class Run implements Comparable<Run> {
         return (this.red ? this.red : 1)
             * (this.green ? this.green : 1)
             * (this.blue ? this.blue : 1);
-    }
-
-    compare(y: Run): (x: Run) => boolean {
-        return (x: Run) =>  (x.red === y.red) && (x.green === y.green) && (x.blue === y.blue);
     }
 }
