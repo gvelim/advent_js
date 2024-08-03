@@ -1,5 +1,5 @@
-import {Option, some, none, map} from '@baetheus/fun/option';
-import {pipe} from '@baetheus/fun/fn';
+import {Option, some, none, isSome, map} from 'effect/Option';
+import {pipe} from 'effect';
 
 const isDigit = (char: string): boolean => {
     return char >= '0' && char<= '9'
@@ -35,7 +35,7 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
             yield line[i];
         } else {
             const ret = pipe( line.substring(l,i+1), scan_word );
-            if( ret.tag === "Some" ) {
+            if( isSome(ret) ) {
                 l = i;
                 yield ret.value;
             }
