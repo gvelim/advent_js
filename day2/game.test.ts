@@ -3,7 +3,7 @@ import {parse_run} from './parser.ts';
 import {Option, Equal, Data, pipe} from 'effect';
 import {Run} from './game.ts';
 
-const parse_unwrap = (run: string) => pipe( parse_run(run),Option.getOrThrow );
+const parse_unwrap = (run: string) => pipe(run, parse_run, Option.getOrThrow );
 
 // try test case as nested array
 test.each([
@@ -13,11 +13,13 @@ test.each([
     ["4 red, 22 green, 6 blue", false],
     ["14 red, 22 green, 16 blue", false],
     ["4 red, 2 green, 16 blue", false]
-])('game::is_possible: %o => %o', (run:string, out:boolean) => {
+])('game::is_possible: %o => %o', (inp:string, out:boolean) => {
         const ref = parse_unwrap("12 red, 13 green, 14 blue");
-        expect(
-            parse_unwrap(run).is_possible(ref)
-        ).toBe(out);
+        pipe(
+            inp,
+            parse_unwrap,
+            (run) => expect(run.is_possible(ref)).toBe(out)
+        )
 })
 
 test("game::fewest_feasible", () => {
