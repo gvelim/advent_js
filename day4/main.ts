@@ -7,19 +7,25 @@ interface ScratchCard {
     numbers: number[];
 }
 
-const data = await fs.readFile("./day4/sample.txt", {encoding: "ascii"});
-const lines = data.split("\n");
+const str_num_array = (line:string): number[] => line
+    .trim()
+    .split(/\s+/)
+    .filter((l) => l.length != 0)
+    .map((l) => Number(l));
 
 const parse_scratch_card = (line:string): ScratchCard => pipe(
     line
-        .split(/Card|\s+|:|\|/)
-        .filter((l) => l.length != 0)
-        .map((l) => Number(l)),
+        .split(/^Card|:|\|/)
+        .filter((l) => l.length),
     (ns): ScratchCard => ({
-            card: ns[0],
-            draw: ns.slice(1,6),
-            numbers: ns.slice(6,),
+            card: str_num_array(ns[0].trim())[0],
+            draw: str_num_array(ns[1].trim()),
+            numbers: str_num_array(ns[2].trim()),
     })
 );
 
-console.log(lines.map(parse_scratch_card));
+const data = await fs.readFile("./day4/sample.txt", {encoding: "ascii"});
+
+console.log(
+    data.split("\n").map(parse_scratch_card)
+);
