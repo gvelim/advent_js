@@ -10,4 +10,4 @@ test.each([
     [pipe(parse_run("1 green red, 6 blue"),Option.isNone),true],
     [pipe(parse_run("green, 3 red, 6 blue"),Option.isNone),true],
     [pipe(parse_run("1 green, 3 red, 6"),Option.isNone),true],
-])("parser::parse_run", (d: [boolean,boolean]) => expect(d[0]).toBe(d[1]))
+])("parser::parse_run", (d1: boolean, d2: boolean) => expect(d1).toBe(d2))
