@@ -20,12 +20,14 @@ const to_scratchcard = (ns:number[][]): ScratchCard => ({
 export const parse_scratch_card = (line :string): ScratchCard => pipe(line, break_down, to_numbers, to_scratchcard);
 export const card_score = (card: ScratchCard): number => pipe(card, calc_wins, calc_score);
 export const card_cloner = (cards: ScratchCard[]) => {
-    let h = HashMap.fromIterable(cards.map(card => [card.card,1]));
+    let h = HashMap.beginMutation(
+        HashMap.fromIterable(cards.map(card => [card.card,1]))
+    );
     return function(card: ScratchCard): number {
         const copies = h.pipe(HashMap.get(card.card), Option.getOrThrow);
         let wins = calc_wins(card).size;
         while(wins > 0)
-            h = h.pipe(HashMap.modify(card.card + wins--, v => v + copies));
+            h.pipe(HashMap.modify(card.card + wins--, v => v + copies));
         return copies;
     }
 }
