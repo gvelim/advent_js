@@ -8,10 +8,6 @@
     "light": "One Light",
     "dark": "One Dark"
   },
-  // "deno": {
-  //     "enable": true
-  // },
-  //
   // Where `mode` is one of:
   // - "system": Use the theme that corresponds to the system's appearance
   // - "light": Use the theme indicated by the "light" field
@@ -842,29 +838,29 @@
                     "enable":true,
                     "enumMemberValues.enabled":true,
                     "functionLikeReturnTypes.enabled":true,
-                    "deno.codeLens.implementations": true,
+                    "deno.codeLens.implementations": false,
                     "deno.codeLens.references": false,
-                    "deno.codeLens.referencesAllFunctions": true,
-                    "deno.codeLens.test": true,
+                    "deno.codeLens.referencesAllFunctions": false,
+                    "deno.codeLens.test": false,
                     "deno.inlayHints.enumMemberValues.enabled": true,
                     "deno.inlayHints.functionLikeReturnTypes.enabled": true,
                     "deno.inlayHints.parameterNames.enabled": "all",
-                    "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": false,
+                    "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
                     "deno.inlayHints.propertyDeclarationTypes.enabled": true,
                     "deno.inlayHints.variableTypes.enabled": true,
-                    "propertyDeclarationTypes.enabled":true,
-                    "variableTypes.enabled":true,
-                    "suggest": {
-                        "completeFunctionCalls": false,
-                        "imports": {
-                            "hosts": {
-                                "https://deno.land": true
-                            }
-                        }
+                    "deno.suggest.completeFunctionCalls": true,
+                    "deno.suggest.names":true,
+                    "deno.suggest.paths":true,
+                    "deno.suggest.autoImports":true,
+                    "deno.suggest.imports.autoDiscover":true,
+                    "deno.suggest.imports.hosts": {
+                        "https://deno.land": true
+                    },
+                    "deno.propertyDeclarationTypes.enabled":true,
+                    "deno.variableTypes.enabled":true
                     }
                 }
             }
-        }
   },
   // Vim settings
   "vim": {
