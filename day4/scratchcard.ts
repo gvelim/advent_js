@@ -2,7 +2,7 @@ import { pipe, HashMap, Option } from "effect";
 
 type CardNums = Set<number>;
 
-interface ScratchCard {
+export interface ScratchCard {
     card: number;
     draw: CardNums;
     numbers: CardNums;
