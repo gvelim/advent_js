@@ -66,7 +66,7 @@ export class Blueprint {
 
         return {
             next(): IteratorResult<EnginePart[]> {
-                let ret: EnginePart[] = [];
+                let ret: any = undefined;
                 let s = iter.next();
                 while(!s.done) {
                     ret = (s.value.id === symbol)
@@ -100,7 +100,7 @@ export class Blueprint {
         const parts: Array<EnginePart> = [];
         const symbols: Array<Symbol> = [];
 
-        const map = input.split(/\n/).join();
+        const map = input.split(/\n/).reduce((acc, s) => acc + s);
 
         for(let i = 0; i < map.length; i++) {
             const c = map[i];
