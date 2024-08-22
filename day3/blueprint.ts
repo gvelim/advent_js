@@ -66,7 +66,7 @@ export class Blueprint {
 
         return {
             next(): IteratorResult<EnginePart[]> {
-                let ret: any = undefined;
+                let ret: EnginePart[] = [];
                 let s = iter.next();
                 while(!s.done) {
                     ret = (s.value.id === symbol)
@@ -97,10 +97,10 @@ export class Blueprint {
 
     static parse(input: string): Blueprint {
         let part = "";
-        const parts = new Array<EnginePart>;
-        const symbols = new Array<Symbol>;
+        const parts: Array<EnginePart> = [];
+        const symbols: Array<Symbol> = [];
 
-        const map = input.split("\n").reduce((arr, line) => arr+line);
+        const map = input.split(/\n/).join();
 
         for(let i = 0; i < map.length; i++) {
             const c = map[i];
@@ -115,6 +115,6 @@ export class Blueprint {
             }
         }
 
-        return new Blueprint( input.search("\n"), parts, symbols );
+        return new Blueprint( input.indexOf("\n"), parts, symbols );
     }
 }
