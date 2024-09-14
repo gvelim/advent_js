@@ -1,9 +1,7 @@
 import {Option, some, none, isSome, map} from 'effect/Option';
 import {pipe} from 'effect';
 
-const isDigit = (char: string): boolean => {
-    return char >= '0' && char<= '9'
-}
+const isDigit = (char: string): boolean => char >= '0' && char<= '9';
 
 const scan_word = (buf: string): Option<string> => {
     const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];

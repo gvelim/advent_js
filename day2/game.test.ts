@@ -50,6 +50,4 @@ test.each([
     {in : parse_unwrap("3 green"), out : 3},
     {in : parse_unwrap("3 red"), out : 3},
     {in : parse_unwrap("3 blue"), out : 3},
-])("game::power %o",(d: IO<Run,number>) => {
-    expect(d.in.power()).toBe(d.out);
-});
+])("game::power %o",(d: IO<Run,number>) => expect(d.in.power()).toBe(d.out));
