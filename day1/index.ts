@@ -4,11 +4,8 @@ import {Parser, Part1ParserGen, Part2ParserGen, Part2ParserIter} from './parser.
 const lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).split("\n");
 
 const parse_sum = (parser: Parser) => (lines: string[]): number => lines
-    .map( (line) => {
-        const buf = new Array<string>;
-        for(const n of parser.parse(line)) buf.push(n);
-        return buf[0] ? parseInt(buf[0] + buf.pop()) : 0
-    })
+    .map( line => Array.from(parser.parse(line)) )
+    .map( nums => nums[0] ? parseInt(nums[0] + nums.pop()) : 0)
     .reduce((acc, sum) => acc + sum);
 
 console.time();
