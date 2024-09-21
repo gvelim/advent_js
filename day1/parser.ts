@@ -1,16 +1,15 @@
 import {Option, some, none, isSome, map} from 'effect/Option';
-import {pipe} from 'effect';
+import {pipe, Array as Arr, String as Str} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
 
-const word_to_numeric = (buf: string): Option<string> => {
-    const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
-    return pipe(
-        TXT.findIndex(word => buf.endsWith(word)),
-        (i) => i > 0 ? some(i.toString()) : none()
+const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
+const word_to_numeric = (buf: string): Option<string> =>
+    pipe(
+        TXT,
+        Arr.findFirstIndex(word => buf.endsWith(word)),
+        map(i => i.toString())
     );
-}
-
 
 // Given a string, return one number at a time
 // Generator implementation
@@ -31,7 +30,7 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
             l = i+1;
             yield line[i];
         } else {
-            const ret = pipe( line.substring(l,i+1), word_to_numeric );
+            const ret = pipe( line, Str.substring(l,i+1), word_to_numeric );
             if( isSome(ret) ) {
                 l = i;
                 yield ret.value;
@@ -56,7 +55,8 @@ function parse_part2_iter(line:string): IterableIterator<string> {
                     ret = line[i]
                 } else
                     pipe(
-                        line.substring(l,i+1),
+                        line,
+                        Str.substring(l,i+1),
                         word_to_numeric,
                         map((val) => { l = i; ret = val }),
                     );
