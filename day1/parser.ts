@@ -3,15 +3,14 @@ import {pipe} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
 
-const scan_word = (buf: string): Option<string> => {
+const word_to_numeric = (buf: string): Option<string> => {
     const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
-
-    for( let i = 0; i < TXT.length; i++ ) {
-        if( buf.endsWith(TXT[i]) )
-            return some(i.toString());
-    }
-    return none();
+    return pipe(
+        TXT.findIndex(word => buf.endsWith(word)),
+        (i) => i > 0 ? some(i.toString()) : none()
+    );
 }
+
 
 // Given a string, return one number at a time
 // Generator implementation
@@ -32,7 +31,7 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
             l = i+1;
             yield line[i];
         } else {
-            const ret = pipe( line.substring(l,i+1), scan_word );
+            const ret = pipe( line.substring(l,i+1), word_to_numeric );
             if( isSome(ret) ) {
                 l = i;
                 yield ret.value;
@@ -58,7 +57,7 @@ function parse_part2_iter(line:string): IterableIterator<string> {
                 } else
                     pipe(
                         line.substring(l,i+1),
-                        scan_word,
+                        word_to_numeric,
                         map((val) => { l = i; ret = val }),
                     );
                 i++;

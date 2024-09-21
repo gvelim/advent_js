@@ -8,7 +8,6 @@ const parse_sum = (parser: Parser) => (lines: string[]): number => lines
         const buf = new Array<string>;
         for(const n of parser.parse(line)) buf.push(n);
         return buf[0] ? parseInt(buf[0] + buf.pop()) : 0
-        // console.log(line + " = " + sum);
     })
     .reduce((acc, sum) => acc + sum);
 
