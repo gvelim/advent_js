@@ -29,17 +29,11 @@ function parse_part1_iter(line:string): IterableIterator<string> {
         next() {
             let result = no_result();
 
-            let next;
-            do {
-                next = chars.next();
-                result = !next.done && isDigit(next.value) ? some_result(next.value) : result;
-            } while( result.done && !next.done)
-
-            // for(const char of chars)
-            //     if( isDigit(char) ) {
-            //         result = some_result(char);
-            //         break;
-            //     };
+            for(const char of chars)
+                if( isDigit(char) ) {
+                    result = some_result(char);
+                    break;
+                };
             return result;
         },
         [Symbol.iterator]() { return this }
