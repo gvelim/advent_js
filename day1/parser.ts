@@ -44,16 +44,17 @@ function parse_part1_iter(line:string): IterableIterator<string> {
 // Number is represented as digit or a word
 // Generator implementation
 function* parse_part2_gen(line:string): IterableIterator<string> {
-    let l = 0;
+    let seen = "";
 
-    for( let i = 0; i < line.length; i++ ) {
-        if( isDigit(line[i]) ) {
-            l = i+1;
-            yield line[i];
+    for( const c of line) {
+        if( isDigit(c) ) {
+            seen = "";
+            yield c;
         } else {
-            const ret = pipe( line, Str.substring(l,i+1), word_to_numeric );
+            seen += c;
+            const ret = word_to_numeric(seen);
             if( isSome(ret) ) {
-                l = i;
+                seen = c;
                 yield ret.value;
             }
         }
