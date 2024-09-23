@@ -1,4 +1,4 @@
-import {Option, some, none, isSome, map} from 'effect/Option';
+import {Option, some, none, isSome, map, filterMap} from 'effect/Option';
 import {pipe, Array as Arr, String as Str} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
@@ -63,28 +63,27 @@ function* parse_part2_gen(line:string): IterableIterator<string> {
 // Number is represented as digit or a word
 // Iterator protocol implementation
 function parse_part2_iter(line:string): IterableIterator<string> {
-    let l = 0;
-    let i = 0;
+    let seen = "";
+    let chars = line[Symbol.iterator]();
 
     // return an iterate object; implements next() and has Symbol.iterator value set
     return {
         next(): IteratorResult<string> {
             let result = no_result();
-            while( result.done && i < line.length) {
-                if( isDigit(line[i]) ) {
-                    l = i;
-                    result = some_result(line[i]);
-                } else
-                    pipe(
-                        line,
-                        Str.substring(l,i+1),
-                        word_to_numeric,
-                        map((num) => {
-                            l = i;
-                            result = some_result(num)
-                        }),
-                    );
-                i++;
+            for(const char of chars) {
+                if( isDigit(char) ) {
+                    seen = "";
+                    result = some_result(char);
+                    break;
+                } else {
+                    seen += char;
+                    const res = word_to_numeric(seen);
+                    if( isSome(res) ) {
+                        seen = char;
+                        result = some_result(res.value);
+                        break;
+                    }
+                }
             }
             return result;
         },
