@@ -27,14 +27,10 @@ function parse_part1_iter(line:string): IterableIterator<string> {
     let chars = line[Symbol.iterator]();
     return {
         next() {
-            let result = no_result();
-
             for(const char of chars)
-                if( isDigit(char) ) {
-                    result = some_result(char);
-                    break;
-                };
-            return result;
+                if( isDigit(char) )
+                    return some_result(char);
+            return no_result();
         },
         [Symbol.iterator]() { return this }
     }
@@ -70,23 +66,20 @@ function parse_part2_iter(line:string): IterableIterator<string> {
     // return an iterate object; implements next() and has Symbol.iterator value set
     return {
         next(): IteratorResult<string> {
-            let result = no_result();
             for(const char of chars) {
                 if( isDigit(char) ) {
                     seen = "";
-                    result = some_result(char);
-                    break;
+                    return some_result(char);
                 } else {
                     seen += char;
                     const res = word_to_numeric(seen);
                     if( isSome(res) ) {
                         seen = char;
-                        result = some_result(res.value);
-                        break;
+                        return some_result(res.value);
                     }
                 }
             }
-            return result;
+            return no_result();
         },
         [Symbol.iterator]() { return this }
     }
