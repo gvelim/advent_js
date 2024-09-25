@@ -2,6 +2,7 @@ import {Option, some, none, isSome, map, filterMap} from 'effect/Option';
 import {pipe, Array as Arr, String as Str} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
+const some_result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value });
 
 const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
 const word_to_numeric = (buf: string): Option<string> =>
@@ -10,9 +11,6 @@ const word_to_numeric = (buf: string): Option<string> =>
         Arr.findFirstIndex(word => buf.endsWith(word)),
         map(i => i.toString())
     );
-
-const some_result = <T>(value:T): IteratorResult<T> => { return { done: false, value: value }}
-const no_result = (): IteratorResult<any> => { return { done: true, value: undefined }}
 
 // Given a string, return one number at a time
 // Generator implementation
@@ -30,7 +28,7 @@ function parse_part1_iter(line:string): IterableIterator<string> {
             for(const char of chars)
                 if( isDigit(char) )
                     return some_result(char);
-            return no_result();
+            return some_result();
         },
         [Symbol.iterator]() { return this }
     }
@@ -79,7 +77,7 @@ function parse_part2_iter(line:string): IterableIterator<string> {
                     }
                 }
             }
-            return no_result();
+            return some_result();
         },
         [Symbol.iterator]() { return this }
     }
