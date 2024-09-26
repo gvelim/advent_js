@@ -2,7 +2,7 @@ import {Option, some, none, isSome, map, filterMap} from 'effect/Option';
 import {pipe, Array as Arr, String as Str} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
-const some_result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value });
+const some_result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value: value as T});
 
 const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
 const word_to_numeric = (buf: string): Option<string> =>
