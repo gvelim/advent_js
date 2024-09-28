@@ -2,7 +2,7 @@ import {Option, some, none, isSome, map, filterMap} from 'effect/Option';
 import {pipe, Array as Arr, String as Str} from 'effect';
 
 const isDigit = (char: string): boolean => char >= '0' && char<= '9';
-const some_result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value: value as T});
+const result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value: value as T});
 
 const TXT = ["zero","one","two","three","four","five","six","seven","eight","nine"];
 const word_to_numeric = (buf: string): Option<string> =>
@@ -27,8 +27,8 @@ function parse_part1_iter(line:string): IterableIterator<string> {
         next() {
             for(const char of chars)
                 if( isDigit(char) )
-                    return some_result(char);
-            return some_result();
+                    return result(char);
+            return result();
         },
         [Symbol.iterator]() { return this }
     }
@@ -67,17 +67,17 @@ function parse_part2_iter(line:string): IterableIterator<string> {
             for(const char of chars) {
                 if( isDigit(char) ) {
                     seen = "";
-                    return some_result(char);
+                    return result(char);
                 } else {
                     seen += char;
                     const res = word_to_numeric(seen);
                     if( isSome(res) ) {
                         seen = char;
-                        return some_result(res.value);
+                        return result(res.value);
                     }
                 }
             }
-            return some_result();
+            return result();
         },
         [Symbol.iterator]() { return this }
     }

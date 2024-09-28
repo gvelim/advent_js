@@ -8,7 +8,7 @@ console.time();
 console.log("Part 1:", sum_parts(bp), sum_parts_raw(bp));
 console.timeEnd();
 console.time();
-console.log("Part 2:", sum_gears_product(bp),sum_gears_product_raw(bp));
+console.log("Part 2:", sum_gears_product(bp), sum_gears_product_raw(bp));
 console.timeEnd();
 
 // End of program here
@@ -16,22 +16,18 @@ console.timeEnd();
 
 function sum_gears_product(bp:Blueprint): number {
     let sum = 0;
-    for(const gear of bp.gears("*")) {
-        sum += gear
-            .map((p) => parseInt(p.id))
-            .reduce((p,a) => p * a);
-    }
+    for(const gear of bp.gears("*"))
+        sum += gear.reduce((acc, p) => acc * parseInt(p.id), 1);
     return sum;
 }
 
 function sum_gears_product_raw(bp:Blueprint): number {
     return bp.symbols
-        .filter((s) => s.id === "*")
-        .map((s) => bp.parts.filter((p) => p.is_touching(s,bp.step)))
-        .filter((parts) => parts.length === 2)
-        .map((parts) => parts.map((p) => parseInt(p.id)))
-        .map((parts) => parts.reduce((p,a) => p * a))
-        .reduce((sum, parts) => sum + parts)
+        .filter( s => s.id === "*")
+        .map( s => bp.parts.filter( p => p.is_touching(s,bp.step)))
+        .filter( parts => parts.length === 2)
+        .map( parts => parts.reduce((acc, p) => acc * parseInt(p.id), 1))
+        .reduce((sum, parts) => sum + parts, 0);
 }
 
 function sum_parts(bp:Blueprint): number {
@@ -43,7 +39,6 @@ function sum_parts(bp:Blueprint): number {
 
 function sum_parts_raw(bp:Blueprint): number {
     return bp.parts
-        .map((p) => bp.symbols.some((s) => p.is_touching(s, bp.step)) ? p.id : "0")
-        .map((id) => parseInt(id))
-        .reduce((sum,id) => sum + id)
+        .map(p => bp.symbols.some(s => p.is_touching(s, bp.step)) ? parseInt(p.id) : 0)
+        .reduce((sum, id) => sum + id, 0);
 }

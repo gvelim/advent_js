@@ -1,5 +1,5 @@
 {
-    "taaks": {
+    "tasks": {
         "test": "deno run -A vitest --run "
     },
     "imports": {

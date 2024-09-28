@@ -1,30 +1,35 @@
 export class Range {
     start: number;
     end: number;
+
     constructor(start: number, end: number) {
         this.start = start;
         this.end = end;
     }
+
     contains(r: Range, offset: number = 0): boolean {
-        return (this.start <= r.start + offset)
-            && (this.end >= r.end + offset)
+        return (this.start <= r.start + offset) && (this.end >= r.end + offset)
     }
 }
 
 export class EnginePart {
     id: string;
     pos: Range;
+
     constructor(id: string, start:number, end:number) {
         this.id = id;
         this.pos = new Range(start,end);
     }
+
     is_touching(p: Symbol, offset: number): boolean {
         const area = new Range(this.pos.start-1, this.pos.end+1);
-        return area.contains(p.pos, offset) // under + diagonal
+        return area.contains(p.pos, offset)  // under + diagonal
             || area.contains(p.pos, -offset) // above + diagonal
-            || area.contains(p.pos) // left or right
+            || area.contains(p.pos)          // left or right
     }
 }
+
+const result = <T>(value?: T): IteratorResult<T> => ({ done: value === undefined, value: value as T})
 
 export type Symbol = EnginePart;
 
@@ -42,56 +47,46 @@ export class Blueprint {
     get step() { return this._step; }
 
     engine_parts(): IterableIterator<EnginePart> {
-        const iter = this.parts.values();
+        const parts = this.parts.values();
         const symbols = this.symbols;
         const step = this._step;
+
         return {
             next(): IteratorResult<EnginePart> {
-                let p: IteratorResult<EnginePart>;
-                do p = iter.next();
-                while(!p.done && !symbols.some((s) => p.value.is_touching(s, step)) );
-                return {
-                    done: p.done,
-                    value: p.value
-                }
+                for(const part of parts)
+                    if( symbols.some(symbol => part.is_touching(symbol,step)) )
+                        return result(part);
+                return result();
             },
             [Symbol.iterator]() { return this }
         }
     }
 
-    gears(symbol:string): IterableIterator<EnginePart[]> {
-        const iter = this.symbols[Symbol.iterator]();
+    gears(code:string): IterableIterator<EnginePart[]> {
+        const symbols = this.symbols[Symbol.iterator]();
         const parts = this.parts;
         const step = this._step;
 
         return {
             next(): IteratorResult<EnginePart[]> {
-                let ret: any = undefined;
-                let s = iter.next();
-                while(!s.done) {
-                    ret = (s.value.id === symbol)
-                        ? parts.filter(
-                            (p) => p.is_touching(s.value, step)
-                        )
-                        : ret;
-                    if ( ret && ret.length === 2 ) break;
-                    s = iter.next();
+                for(const symbol of symbols) {
+                    if (symbol.id !== code) continue;
+                    const touchingParts = parts.filter(p => p.is_touching(symbol,step));
+                    if (touchingParts.length !== 2) continue;
+                    return result(touchingParts);
                 }
-                return {
-                    done: s.done,
-                    value: ret,
-                };
+                return result();
             },
             [Symbol.iterator]() { return this; }
         }
     }
 
-    *gears_gen(sym: string): IterableIterator<EnginePart[]> {
-        for(const s of this.symbols) {
-            if( s.id !== sym ) continue;
-            const ret = this.parts.filter((p) => p.is_touching(s,this.step));
-            if( ret.length !== 2 ) continue;
-            yield ret;
+    *gears_gen(code: string): IterableIterator<EnginePart[]> {
+        for(const symbol of this.symbols) {
+            if( symbol.id !== code ) continue;
+            const touchinParts = this.parts.filter((p) => p.is_touching(symbol,this.step));
+            if( touchinParts.length !== 2 ) continue;
+            yield touchinParts;
         }
     }
 
@@ -102,16 +97,16 @@ export class Blueprint {
 
         const map = input.split(/\n/).reduce((acc, s) => acc + s);
 
-        for(let i = 0; i < map.length; i++) {
+        for (let i = 0; i < map.length; i++) {
             const c = map[i];
 
-            if( c>='0' && c<='9') part += c;
+            if (c>='0' && c<='9') part += c;
             else {
-                if( part.length > 0 ) {
+                if (part.length > 0) {
                     parts.push( new EnginePart(part,i - part.length, i-1));
                     part = "";
                 }
-                if(c !== '.') symbols.push(new EnginePart(c,i,i));
+                if (c !== '.') symbols.push(new EnginePart(c,i,i));
             }
         }
 
