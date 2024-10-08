@@ -14,7 +14,9 @@ test.each([
     ["green, 3 red, 6 blue", Option.isNone],
     ["1 green, 3 red, 6", Option.isNone]
 ])("parser::parse_run", (input: string, expected: fnCheck ) => {
-    expect(pipe(input, parse_run, expected)).toBe(true)
+    expect(
+        pipe(input, parse_run, expected)
+    ).toBe(true)
 })
 
 test.each([
@@ -31,5 +33,7 @@ test.each([
     ["Game 4:;\nGame 5:;", Option.isNone]
 ])("parser::parse_game", (input: string, expected: fnCheck) => {
     const parsed = parse_input(input);
-    expect(expected(parsed)).toBe(true);
+    expect(
+        pipe(input, parse_input, expected)
+    ).toBe(true);
 })
