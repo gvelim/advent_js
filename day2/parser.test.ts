@@ -1,7 +1,6 @@
 import {test,expect} from 'vitest';
 import {parse_run, parse_input} from './parser.ts';
 import { Option, pipe } from 'effect';
-import { Game } from "./game.ts";
 
 type fnCheck = <T>(input: Option.Option<T>) => boolean;
 
