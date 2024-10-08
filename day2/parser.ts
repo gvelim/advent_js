@@ -33,7 +33,7 @@ const parse_runs = (inp: string): Array<Run> => {
 
 const parse_game = (inp: string): Option.Option<Game> => {
     // incorrectly formatted game string
-    if( inp.search(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green),?)*;?)+$/) === -1 ) return Option.none();
+    if( inp.search(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green)\s*,?)\s*;?)+$/) === -1 ) return Option.none();
 
     const g = inp.split(":");
     return Option.some({
