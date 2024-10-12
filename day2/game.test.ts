@@ -1,9 +1,8 @@
 import {test, expect} from 'vitest';
-import {parse_run} from './parser.ts';
 import {Option, Equal, Data, pipe} from 'effect';
 import {Run} from './game.ts';
 
-const parse_unwrap = (run: string) => pipe(run, parse_run, Option.getOrThrow );
+const parse_unwrap = (run: string) => pipe(run, Run.fromString, Option.getOrThrow );
 
 // try test case as nested array
 test.each([
@@ -18,7 +17,7 @@ test.each([
         pipe(
             inp,
             parse_unwrap,
-            (run) => expect(run.is_possible(ref)).toBe(out)
+            run => expect(run.is_possible(ref)).toBe(out)
         )
 })
 

@@ -1,6 +1,7 @@
-import {test,expect} from 'vitest';
-import {parse_run, parse_input} from './parser.ts';
+import { test, expect } from 'vitest';
+import { parse_input } from './parser.ts';
 import { Option, pipe } from 'effect';
+import { Run } from './game.ts';
 
 type fnCheck = <T>(input: Option.Option<T>) => boolean;
 
@@ -14,7 +15,7 @@ test.each([
     ["1 green, 3 red, 6", Option.isNone]
 ])("parser::parse_run", (input: string, expected: fnCheck ) => {
     expect(
-        pipe(input, parse_run, expected)
+        pipe(input, Run.fromString, expected)
     ).toBe(true)
 })
 
