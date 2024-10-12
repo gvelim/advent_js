@@ -3,7 +3,7 @@ import { Option } from 'effect';
 
 export const parse_run = (inp:string) : Option.Option<Run>  => {
     // incorrectly formatted game string
-    if( inp.search(/^(\s*\d+\s+(blue|red|green),?)+$/) === -1 ) return Option.none();
+    if( !inp.match(/^(\s*\d+\s+(blue|red|green),?)+$/) ) return Option.none();
 
     const run = new Run();
     inp.split(",")
@@ -33,7 +33,7 @@ const parse_runs = (inp: string): Array<Run> => {
 
 const parse_game = (inp: string): Option.Option<Game> => {
     // incorrectly formatted game string
-    if( inp.search(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green)\s*,?)\s*;?)+$/) === -1 ) return Option.none();
+    if( !inp.match(/^Game\s+\d+\s*:((\s*\d+\s+(blue|red|green)\s*,?)\s*;?)+$/) ) return Option.none();
 
     const g = inp.split(":");
     return Option.some({
@@ -47,9 +47,9 @@ export const parse_input = (input: string): Option.Option<Array<Game>> => {
     input
         .split("\n")
         .map(parse_game)
-        .filter( (game) => game._tag === "Some" )
-        .map( (game) => game.value )
-        .forEach( (game) =>  games.push(game) );
+        .filter( game => game._tag === "Some" )
+        .map( game => game.value )
+        .forEach( game =>  games.push(game) );
 
-    return games.length !== 0 ? Option.some(games) : Option.none();
+    return games.length ? Option.some(games) : Option.none();
 }
