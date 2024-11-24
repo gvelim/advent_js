@@ -1,6 +1,7 @@
 import * as fs from 'node:fs/promises';
-import { parse_input, parse_run } from './parser.ts';
+import { parse_input } from './parser.ts';
 import { Option } from 'effect';
+import { Run } from "./game.ts";
 
 const games = parse_input(
         await fs.readFile("./day2/input.txt", { encoding: "ascii" })
@@ -11,7 +12,7 @@ if( Option.isNone(games) ) {
 }
 else {
     console.time();
-    const ref = parse_run("12 red, 13 green, 14 blue");
+    const ref = Run.fromString("12 red, 13 green, 14 blue");
     let sum = Option.isSome(ref)
         ? games.value
             .map( game => game.runs.every( run => run.is_possible(ref.value)) ? game.id : 0 )
