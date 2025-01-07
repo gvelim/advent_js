@@ -1,7 +1,9 @@
 import * as fs from 'node:fs/promises';
 import {ParserIter, Part1ParserGen, Part1ParserIter, Part2ParserGen, Part2ParserIter} from './parser.ts';
+import path from "node:path";
 
-const lines = (await fs.readFile("./day1/input.txt", { encoding: "ascii" })).split("\n");
+const dir = path.dirname(process.argv[1]);
+const lines = (await fs.readFile(dir+"/input.txt", { encoding: "ascii" })).split("\n");
 
 const parse_sum = (parser: ParserIter) => (lines: string[]): number => lines
     .map( line => Array.from(parser.parse(line)) )

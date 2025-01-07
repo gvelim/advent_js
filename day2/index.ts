@@ -2,9 +2,11 @@ import * as fs from 'node:fs/promises';
 import { parse_input } from './parser.ts';
 import { Option } from 'effect';
 import { Run } from "./game.ts";
+import path from "node:path";
 
+const dir = path.dirname(process.argv[1]);
 const games = parse_input(
-        await fs.readFile("./day2/input.txt", { encoding: "ascii" })
+        await fs.readFile(dir + "/input.txt", { encoding: "ascii" })
     );
 
 if( Option.isNone(games) ) {

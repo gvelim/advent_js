@@ -3,7 +3,9 @@
   "specifiers": {
     "npm:@types/node@*": "18.16.19",
     "npm:effect@*": "3.9.1",
-    "npm:vitest@*": "2.1.2_@types+node@18.16.19_@vitest+spy@2.1.2_vite@5.4.8__@types+node@18.16.19"
+    "npm:effect@^3.8.3": "3.9.1",
+    "npm:vitest@*": "2.1.2_@types+node@18.16.19_@vitest+spy@2.1.2_vite@5.4.8__@types+node@18.16.19",
+    "npm:vitest@^2.1.1": "2.1.2_@types+node@18.16.19_@vitest+spy@2.1.2_vite@5.4.8__@types+node@18.16.19"
   },
   "npm": {
     "@esbuild/aix-ppc64@0.21.5": {

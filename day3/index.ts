@@ -1,7 +1,9 @@
 import * as fs from 'node:fs/promises';
 import {Blueprint} from './blueprint.ts';
+import path from "node:path";
 
-const buf = await fs.readFile("./day3/input.txt", {encoding: "ascii"});
+const dir = path.dirname(process.argv[1]);
+const buf = await fs.readFile(dir + "/input.txt", {encoding: "ascii"});
 const bp = Blueprint.parse(buf);
 
 console.time();
