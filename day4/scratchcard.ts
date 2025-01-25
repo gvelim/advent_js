@@ -28,11 +28,11 @@ export const parse_scratch_card = (line :string): ScratchCard => pipe(
 
 /// Part 1 functions
 const calc_winning_nums = (c:ScratchCard): CardNums => c.numbers.intersection(c.draw);
-const calc_score = (fn_wins: (c:ScratchCard) => CardNums) => (c:ScratchCard) => {
+const score_card = (fn_wins: (c:ScratchCard) => CardNums) => (c:ScratchCard): number => {
     const w = fn_wins(c);
     return w.size ? Math.pow(2,w.size-1) : 0;
 }
-export const card_score = (card: ScratchCard): number => pipe(card, calc_score(calc_winning_nums));
+export const calc_card_score = (card: ScratchCard): number => pipe(card, score_card(calc_winning_nums));
 
 
 /// Part 2 functions
