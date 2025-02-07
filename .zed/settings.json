@@ -1,18 +1,10 @@
+// Folder-specific settings
+//
+// For a full list of overridable settings, and general information on folder-specific settings,
+// see the documentation: https://zed.dev/docs/configuring-zed#folder-specific-settings
 {
-  // The name of the Zed theme to use for the UI.
-  //
-  // The theme can also be set to follow system preferences:
-  //
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "One Dark"
-  },
-  // Where `mode` is one of:
-  // - "system": Use the theme that corresponds to the system's appearance
-  // - "light": Use the theme indicated by the "light" field
-  // - "dark": Use the theme indicated by the "dark" field
-  // "theme": "One Dark",
+  // The name of the Zed theme to use for the UI
+  "theme": "Catppuccin Macchiato",
   // The name of a base set of key bindings to use.
   // This setting can take four values, each named after another
   // text editor:
@@ -24,20 +16,18 @@
   "base_keymap": "VSCode",
   // Features that can be globally enabled or disabled
   "features": {
-    // Which inline completion provider to use.
-    "inline_completion_provider": "copilot"
+    // Show Copilot icon in status bar
+    "copilot": false
   },
   // The name of a font to use for rendering text in the editor
-  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_family": "Mononoki Nerd Font",
   // The OpenType features to enable for text in the editor.
   "buffer_font_features": {
     // Disable ligatures:
     // "calt": false
   },
   // The default font size for text in the editor
-  "buffer_font_size": 15,
-  // The weight of the editor font in standard CSS units from 100 to 900.
-  "buffer_font_weight": 400,
+  "buffer_font_size": 14,
   // Set the buffer's line height.
   // May take 3 values:
   //  1. Use a line height that's comfortable for reading (1.618)
@@ -50,65 +40,26 @@
   //         },
   "buffer_line_height": "comfortable",
   // The name of a font to use for rendering text in the UI
-  "ui_font_family": "Zed Plex Mono",
+  "ui_font_family": "Zed Plex Sans",
   // The OpenType features to enable for text in the UI
   "ui_font_features": {
     // Disable ligatures:
     "calt": false
   },
-  // The weight of the UI font in standard CSS units from 100 to 900.
-  "ui_font_weight": 400,
   // The default font size for text in the UI
   "ui_font_size": 16,
   // The factor to grow the active pane by. Defaults to 1.0
   // which gives the same size as all other panes.
   "active_pane_magnification": 1.0,
-  // Centered layout related settings.
-  "centered_layout": {
-    // The relative width of the left padding of the central pane from the
-    // workspace when the centered layout is used.
-    "left_padding": 0.2,
-    // The relative width of the right padding of the central pane from the
-    // workspace when the centered layout is used.
-    "right_padding": 0.2
-  },
-  // The key to use for adding multiple cursors
-  // Currently "alt" or "cmd_or_ctrl"  (also aliased as
-  // "cmd" and "ctrl") are supported.
-  "multi_cursor_modifier": "alt",
-  // Whether to enable vim modes and key bindings.
-  "vim_mode": true,
+  // Whether to enable vim modes and key bindings
+  "vim_mode": false,
   // Whether to show the informational hover box when moving the mouse
   // over symbols in the editor.
   "hover_popover_enabled": true,
   // Whether to confirm before quitting Zed.
   "confirm_quit": false,
-  // Whether to restore last closed project when fresh Zed instance is opened.
-  "restore_on_startup": "last_workspace",
-  // Size of the drop target in the editor.
-  "drop_target_size": 0.2,
-  // Whether the window should be closed when using 'close active item' on a window with no tabs.
-  // May take 3 values:
-  //  1. Use the current platform's convention
-  //         "when_closing_with_no_tabs": "platform_default"
-  //  2. Always close the window:
-  //         "when_closing_with_no_tabs": "close_window",
-  //  3. Never close the window
-  //         "when_closing_with_no_tabs": "keep_window_open",
-  "when_closing_with_no_tabs": "platform_default",
   // Whether the cursor blinks in the editor.
   "cursor_blink": true,
-  // How to highlight the current line in the editor.
-  //
-  // 1. Don't highlight the current line:
-  //    "none"
-  // 2. Highlight the gutter area:
-  //    "gutter"
-  // 3. Highlight the editor area:
-  //    "line"
-  // 4. Highlight the full line (default):
-  //    "all"
-  "current_line_highlight": "all",
   // Whether to pop the completions menu while typing in an editor without
   // explicitly requesting it.
   "show_completions_on_input": true,
@@ -119,7 +70,7 @@
   // documentation when not included in original completion list.
   "completion_documentation_secondary_query_debounce": 300,
   // Whether to show wrap guides in the editor. Setting this to true will
-  // show a guide at the 'preferred_line_length' value if 'soft_wrap' is set to
+  // show a guide at the 'preferred_line_length' value if softwrap is set to
   // 'preferred_line_length', and will show any additional guides as specified
   // by the 'wrap_guides' setting.
   "show_wrap_guides": true,
@@ -127,8 +78,6 @@
   "wrap_guides": [],
   // Hide the values of in variables from visual display in private files
   "redact_private_values": false,
-  // The default number of lines to expand excerpts in the multibuffer by.
-  "expand_excerpt_lines": 3,
   // Globs to match against file paths to determine if a file is private.
   "private_files": [
     "**/.env*",
@@ -140,17 +89,10 @@
   ],
   // Whether to use additional LSP queries to format (and amend) the code after
   // every "trigger" symbol input, defined by LSP server capabilities.
-  "use_on_type_format": true,
-  // Whether to automatically add matching closing characters when typing
-  // opening parenthesis, bracket, brace, single or double quote characters.
-  // For example, when you type (, Zed will add a closing ) at the correct position.
+  "use_on_type_format": false,
+  // Whether to automatically type closing characters for you. For example,
+  // when you type (, Zed will automatically add a closing ) at the correct position.
   "use_autoclose": true,
-  // Controls how the editor handles the autoclosed characters.
-  // When set to `false`(default), skipping over and auto-removing of the closing characters
-  // happen only for auto-inserted characters.
-  // Otherwise(when `true`), the closing characters are always skipped over and auto-removed
-  // no matter how they were inserted.
-  "always_treat_brackets_as_autoclosed": false,
   // Controls whether copilot provides suggestion immediately
   // or waits for a `copilot::Toggle`
   "show_copilot_suggestions": true,
@@ -169,7 +111,7 @@
     // Join calls with the microphone live by default
     "mute_on_join": false,
     // Share your project when you are the first to join a channel
-    "share_on_join": false
+    "share_on_join": true
   },
   // Toolbar related settings
   "toolbar": {
@@ -193,58 +135,17 @@
     // 4. Never show the scrollbar:
     //    "never"
     "show": "auto",
-    // Whether to show cursor positions in the scrollbar.
-    "cursors": true,
     // Whether to show git diff indicators in the scrollbar.
     "git_diff": true,
-    // Whether to show buffer search results in the scrollbar.
-    "search_results": true,
-    // Whether to show selected symbol occurrences in the scrollbar.
-    "selected_symbol": true,
+    // Whether to show selections in the scrollbar.
+    "selections": true,
+    // Whether to show symbols selections in the scrollbar.
+    "symbols_selections": true,
     // Whether to show diagnostic indicators in the scrollbar.
-    "diagnostics": false
-  },
-  // What to do when multibuffer is double clicked in some of its excerpts
-  // (parts of singleton buffers).
-  // May take 2 values:
-  //  1. Behave as a regular buffer and select the whole word (default).
-  //         "double_click_in_multibuffer": "select"
-  //  2. Open the excerpt clicked as a new buffer in the new tab.
-  //         "double_click_in_multibuffer": "open",
-  // For the case of "open", regular selection behavior can be achieved by holding `alt` when double clicking.
-  "double_click_in_multibuffer": "select",
-  "gutter": {
-    // Whether to show line numbers in the gutter.
-    "line_numbers": true,
-    // Whether to show code action buttons in the gutter.
-    "code_actions": true,
-    // Whether to show fold buttons in the gutter.
-    "folds": true
-  },
-  "indent_guides": {
-    /// Whether to show indent guides in the editor.
-    "enabled": true,
-    /// The width of the indent guides in pixels, between 1 and 10.
-    "line_width": 1,
-    /// Determines how indent guides are colored.
-    /// This setting can take the following three values:
-    ///
-    /// 1. "disabled"
-    /// 2. "fixed"
-    /// 3. "indent_aware"
-    "coloring": "fixed",
-    /// Determines how indent guide backgrounds are colored.
-    /// This setting can take the following two values:
-    ///
-    /// 1. "disabled"
-    /// 2. "indent_aware"
-    "background_coloring": "disabled"
+    "diagnostics": true
   },
   // The number of lines to keep above/below the cursor when scrolling.
   "vertical_scroll_margin": 3,
-  // Scroll sensitivity multiplier. This multiplier is applied
-  // to both the horizontal and vertical delta values while scrolling.
-  "scroll_sensitivity": 1.0,
   "relative_line_numbers": false,
   // When to populate a new search's query based on the text under the cursor.
   // This setting can take the following three values:
@@ -264,20 +165,12 @@
     "show_type_hints": true,
     "show_parameter_hints": true,
     // Corresponds to null/None LSP hint type value.
-    "show_other_hints": true,
-    // Time to wait after editing the buffer, before requesting the hints,
-    // set to 0 to disable debouncing.
-    "edit_debounce_ms": 700,
-    // Time to wait after scrolling the buffer, before requesting the hints,
-    // set to 0 to disable debouncing.
-    "scroll_debounce_ms": 50
+    "show_other_hints": true
   },
   "project_panel": {
-    // Whether to show the project panel button in the status bar
-    "button": true,
     // Default width of the project panel.
     "default_width": 240,
-    // Where to dock the project panel. Can be 'left' or 'right'.
+    // Where to dock project panel. Can be 'left' or 'right'.
     "dock": "left",
     // Whether to show file icons in the project panel.
     "file_icons": true,
@@ -290,74 +183,61 @@
     // Whether to reveal it in the project panel automatically,
     // when a corresponding project entry becomes active.
     // Gitignored entries are never auto revealed.
-    "auto_reveal_entries": true,
-    /// Whether to fold directories automatically
-    /// when a directory has only one directory inside.
-    "auto_fold_dirs": false
+    "auto_reveal_entries": true
   },
   "collaboration_panel": {
     // Whether to show the collaboration panel button in the status bar.
     "button": true,
-    // Where to dock the collaboration panel. Can be 'left' or 'right'.
+    // Where to dock channels panel. Can be 'left' or 'right'.
     "dock": "left",
-    // Default width of the collaboration panel.
+    // Default width of the channels panel.
     "default_width": 240
   },
   "chat_panel": {
-    // Whether to show the chat panel button in the status bar.
+    // Whether to show the collaboration panel button in the status bar.
     "button": true,
-    // Where to the chat panel. Can be 'left' or 'right'.
+    // Where to dock channels panel. Can be 'left' or 'right'.
     "dock": "right",
-    // Default width of the chat panel.
+    // Default width of the channels panel.
     "default_width": 240
   },
-  "message_editor": {
-    // Whether to automatically replace emoji shortcodes with emoji characters.
-    // For example: typing `:wave:` gets replaced with `👋`.
-    "auto_replace_emoji_shortcode": true
-  },
   "notification_panel": {
-    // Whether to show the notification panel button in the status bar.
+    // Whether to show the collaboration panel button in the status bar.
     "button": true,
-    // Where to dock the notification panel. Can be 'left' or 'right'.
+    // Where to dock channels panel. Can be 'left' or 'right'.
     "dock": "right",
-    // Default width of the notification panel.
+    // Default width of the channels panel.
     "default_width": 380
   },
   "assistant": {
-    // Version of this setting.
-    "version": "1",
-    // Whether the assistant is enabled.
-    "enabled": true,
     // Whether to show the assistant panel button in the status bar.
+    "default_model": {
+      "provider": "deepseek",
+      "model": "deepseek-chat"
+    },
     "button": true,
-    // Where to dock the assistant panel. Can be 'left', 'right' or 'bottom'.
+    // Where to dock the assistant. Can be 'left', 'right' or 'bottom'.
     "dock": "right",
     // Default width when the assistant is docked to the left or right.
     "default_width": 640,
     // Default height when the assistant is docked to the bottom.
-    "default_height": 320,
-    // AI provider.
-    "provider": {
-      "name": "openai",
-      // The default model to use when creating new contexts. This
-      // setting can take three values:
-      //
-      // 1. "gpt-3.5-turbo"
-      // 2. "gpt-4"
-      // 3. "gpt-4-turbo-preview"
-      // 4. "gpt-4o"
-      "default_model": "gpt-4o"
-    }
+    "default_height": 640.0,
+    // The default OpenAI API endpoint to use when starting new conversations.
+    "openai_api_url": "https://api.openai.com/v1",
+    // The default OpenAI model to use when starting new conversations. This
+    // setting can take three values:
+    //
+    // 1. "gpt-3.5-turbo-0613"
+    // 2. "gpt-4-0613"
+    // 3. "gpt-4-1106-preview"
+    "default_open_ai_model": "gpt-4-1106-preview",
+    // The version of the assistant configuration.
+    "version": "2"
   },
   // Whether the screen sharing icon is shown in the os status bar.
   "show_call_status_icon": true,
   // Whether to use language servers to provide code intelligence.
   "enable_language_server": true,
-  // The list of language servers to use (or disable) for all languages.
-  //
-  // This is typically customized on a per-language basis.
-  "language_servers": ["..."],
   // When to automatically save edited buffers. This setting can
   // take four values.
   //
@@ -370,31 +250,12 @@
   // 4. Save when idle for a certain amount of time:
   //     "autosave": { "after_delay": {"milliseconds": 500} },
   "autosave": "off",
-  // Settings related to the editor's tab bar.
-  "tab_bar": {
-    // Whether or not to show the tab bar in the editor
-    "show": true,
-    // Whether or not to show the navigation history buttons.
-    "show_nav_history_buttons": true
-  },
   // Settings related to the editor's tabs
   "tabs": {
     // Show git status colors in the editor tabs.
-    "git_status": false,
+    "git_status": true,
     // Position of the close button on the editor tabs.
     "close_position": "right"
-  },
-  // Settings related to preview tabs.
-  "preview_tabs": {
-    // Whether preview tabs should be enabled.
-    // Preview tabs allow you to open files in preview mode, where they close automatically
-    // when you switch to another file unless you explicitly pin them.
-    // This is useful for quickly viewing files without cluttering your workspace.
-    "enabled": true,
-    // Whether to open tabs in preview mode when selected from the file finder.
-    "enable_preview_from_file_finder": false,
-    // Whether a preview tab gets replaced when code navigation is used to navigate away from the tab.
-    "enable_preview_from_code_navigation": false
   },
   // Whether or not to remove any trailing whitespace from lines of a buffer
   // before saving it.
@@ -405,8 +266,6 @@
   // when saving it.
   "ensure_final_newline_on_save": true,
   // Whether or not to perform a buffer format before saving
-  //
-  // Keep in mind, if the autosave with delay is enabled, format_on_save will be ignored
   "format_on_save": "off",
   // How to perform a buffer format. This setting can take 4 values:
   //
@@ -430,13 +289,11 @@
   //
   // 1. Do not soft wrap.
   //      "soft_wrap": "none",
-  // 2. Prefer a single line generally, unless an overly long line is encountered.
-  //      "soft_wrap": "prefer_line",
-  // 3. Soft wrap lines that overflow the editor:
+  // 2. Soft wrap lines that overflow the editor:
   //      "soft_wrap": "editor_width",
-  // 4. Soft wrap lines at the preferred line length
+  // 3. Soft wrap lines at the preferred line length
   //      "soft_wrap": "preferred_line_length",
-  "soft_wrap": "prefer_line",
+  "soft_wrap": "none",
   // The column at which to soft-wrap lines, for buffers where soft-wrap
   // is enabled.
   "preferred_line_length": 80,
@@ -448,17 +305,16 @@
   // Control what info is collected by Zed.
   "telemetry": {
     // Send debug info like crash reports.
-    "diagnostics": true,
+    "diagnostics": false,
     // Send anonymized usage data like what languages you're using Zed with.
-    "metrics": true
+    "metrics": false
   },
-  // Automatically update Zed. This setting may be ignored on Linux if
-  // installed through a package manager.
+  // Automatically update Zed
   "auto_update": true,
   // Diagnostics configuration.
   "diagnostics": {
     // Whether to show warnings or not by default.
-    "include_warnings": true
+    "include_warnings": false
   },
   // Add files or globs of files that will be excluded by Zed entirely:
   // they will be skipped during FS scan(s), file tree and file search
@@ -480,15 +336,7 @@
     //      "git_gutter": "tracked_files"
     // 2. Hide the gutter
     //      "git_gutter": "hide"
-    "git_gutter": "tracked_files",
-    // Control whether the git blame information is shown inline,
-    // in the currently focused line.
-    "inline_blame": {
-      "enabled": true
-      // Sets a delay after which the inline blame information is shown.
-      // Delay is restarted with every cursor movement.
-      // "delay_ms": 600
-    }
+    "git_gutter": "tracked_files"
   },
   "copilot": {
     // The set of glob patterns for which copilot should be disabled
@@ -522,7 +370,7 @@
     //         }
     //     }
     "shell": "system",
-    // Where to dock terminals panel. Can be `left`, `right`, `bottom`.
+    // Where to dock terminals panel. Can be 'left', 'right', 'bottom'.
     "dock": "bottom",
     // Default width when the terminal is docked to the left or right.
     "default_width": 640,
@@ -577,8 +425,6 @@
     // Whether or not selecting text in the terminal will automatically
     // copy to the system clipboard.
     "copy_on_select": false,
-    // Whether to show the terminal button in the status bar
-    "button": true,
     // Any key-value pairs added to this list will be added to the terminal's
     // environment. Use `:` to separate multiple values.
     "env": {
@@ -605,13 +451,9 @@
         // to the current working directory. We recommend overriding this
         // in your project's settings, rather than globally.
         "directories": [".env", "env", ".venv", "venv"],
-        // Can also be `csh`, `fish`, and `nushell`
+        // Can also be 'csh', 'fish', and `nushell`
         "activate_script": "default"
       }
-    },
-    "toolbar": {
-      // Whether to display the terminal title in its toolbar.
-      "title": true
     }
     // Set the terminal's font size. If this option is not included,
     // the terminal will default to matching the buffer's font size.
@@ -624,198 +466,97 @@
     // Existing terminals will not pick up this change until they are recreated.
     // "max_scroll_history_lines": 10000,
   },
-  "code_actions_on_format": {},
-  // An object whose keys are language names, and whose values
-  // are arrays of filenames or extensions of files that should
-  // use those languages.
-  //
-  // For example, to treat files like `foo.notjs` as JavaScript,
-  // and `Embargo.lock` as TOML:
-  //
-  // {
-  //   "JavaScript": ["notjs"],
-  //   "TOML": ["Embargo.lock"]
-  // }
-  //
-  "file_types": {},
-  // The extensions that Zed should automatically install on startup.
-  //
-  // If you don't want any of these extensions, add this field to your settings
-  // and change the value to `false`.
-  "auto_install_extensions": {
-    "html": true
+  // Difference settings for semantic_index
+  "semantic_index": {
+    "enabled": true
   },
+  // Settings specific to our elixir integration
+  "elixir": {
+    // Change the LSP zed uses for elixir.
+    // Note that changing this setting requires a restart of Zed
+    // to take effect.
+    //
+    // May take 3 values:
+    //  1. Use the standard ElixirLS, this is the default
+    //         "lsp": "elixir_ls"
+    //  2. Use the experimental NextLs
+    //         "lsp": "next_ls",
+    //  3. Use a language server installed locally on your machine:
+    //         "lsp": {
+    //           "local": {
+    //             "path": "~/next-ls/bin/start",
+    //             "arguments": ["--stdio"]
+    //            }
+    //          },
+    //
+    "lsp": "elixir_ls"
+  },
+  // Settings specific to our deno integration
+  "deno": {
+    "enable": false
+  },
+  "code_actions_on_format": {},
   // Different settings for specific languages.
   "languages": {
-    "Astro": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-astro"]
-      }
-    },
-    "Blade": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "C": {
-      "format_on_save": "off",
-      "use_on_type_format": false
-    },
-    "C++": {
-      "format_on_save": "off",
-      "use_on_type_format": false
-    },
-    "CSS": {
-      "prettier": {
-        "allowed": true
-      }
+    "Plain Text": {
+      //"soft_wrap": "preferred_line_length"
+      "soft_wrap": "none"
     },
     "Elixir": {
-      "language_servers": ["elixir-ls", "!next-ls", "!lexical", "..."]
+      "tab_size": 2
     },
-    "Erlang": {
-      "language_servers": ["erlang-ls", "!elp", "..."]
+    "Gleam": {
+      "tab_size": 2
     },
     "Go": {
+      "tab_size": 4,
+      "hard_tabs": true,
       "code_actions_on_format": {
         "source.organizeImports": true
       }
     },
-    "GraphQL": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "HEEX": {
-      "language_servers": ["elixir-ls", "!next-ls", "!lexical", "..."]
-    },
-    "HTML": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "Java": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-java"]
-      }
+    "Markdown": {
+      "tab_size": 2,
+      "soft_wrap": "preferred_line_length"
     },
     "JavaScript": {
-      "language_servers": ["deno","!typescript-language-server", "!vtsls"],
-      "prettier": {
-        "allowed": true
-      }
+      "tab_size": 2,
+      "language_servers": ["deno"],
+      "inlay_hints": {
+          "enabled": true,
+          "show_type_hints": true,
+          "show_parameter_hints": true,
+          "show_other_hints": true
+      },
+      "formatter": "language_server"
     },
-    "JSON": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "JSONC": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "Markdown": {
-      "format_on_save": "off",
-      "use_on_type_format": false,
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "PHP": {
-      "language_servers": ["phpactor", "!intelephense", "..."],
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-php"],
-        "parser": "php"
-      }
-    },
-    "Ruby": {
-      "language_servers": ["solargraph", "!ruby-lsp", "!rubocop", "..."]
-    },
-    "SCSS": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "SQL": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-sql"]
-      }
-    },
-    "Starlark": {
-      "language_servers": ["starpls", "!buck2-lsp", "..."]
-    },
-    "Svelte": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["prettier-plugin-svelte"]
-      }
-    },
-    "TSX": {
-      "language_servers": ["deno","!typescript-language-server", "!vtsls"],
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "Twig": {
-      "prettier": {
-        "allowed": true
-      }
+    "Terraform": {
+      "tab_size": 2
     },
     "TypeScript": {
-      "language_servers": ["deno","!typescript-language-server", "!vtsls"],
-      "prettier": {
-        "allowed": true
-      }
+      "tab_size": 2
     },
-    "Vue.js": {
-      "prettier": {
-        "allowed": true
-      }
-    },
-    "XML": {
-      "prettier": {
-        "allowed": true,
-        "plugins": ["@prettier/plugin-xml"]
-      }
+    "TSX": {
+      "tab_size": 2
     },
     "YAML": {
-      "prettier": {
-        "allowed": true
-      }
-    }
-  },
-  // Different settings for specific language models.
-  "language_models": {
-    "anthropic": {
-      "api_url": "https://api.anthropic.com"
+      "tab_size": 2
     },
-    "openai": {
-      "api_url": "https://api.openai.com/v1"
+    "JSON": {
+      "tab_size": 2
     },
-    "ollama": {
-      "api_url": "http://localhost:11434"
+    "OCaml": {
+      "tab_size": 2
+    },
+    "OCaml Interface": {
+      "tab_size": 2
     }
   },
   // Zed's Prettier integration settings.
-  // Allows to enable/disable formatting with Prettier
-  // and configure default Prettier, used when no project-level Prettier installation is found.
+  // If Prettier is enabled, Zed will use this its Prettier instance for any applicable file, if
+  // project has no other Prettier installed.
   "prettier": {
-    // // Whether to consider prettier formatter or not when attempting to format a file.
-    // "allowed": false,
-    //
-    // // Use regular Prettier json configuration.
-    // // If Prettier is allowed, Zed will use this for its Prettier instance for any applicable file, if
-    // // the project has no other Prettier installed.
-    // "plugins": [],
-    //
-    // // Use regular Prettier json configuration.
-    // // If Prettier is allowed, Zed will use this for its Prettier instance for any applicable file, if
-    // // the project has no other Prettier installed.
+    // Use regular Prettier json configuration:
     // "trailingComma": "es5",
     // "tabWidth": 4,
     // "semi": false,
@@ -823,53 +564,67 @@
   },
   // LSP Specific settings.
   "lsp": {
-    // Specify the LSP name as a key here.
-    // "rust-analyzer": {
-    //     // These initialization options are merged into Zed's defaults
-    //     "initialization_options": {
-    //         "check": {
-    //             "command": "clippy" // rust-analyzer.check.command (default: "check")
-    //         }
-    //     }
-    // }
-        "deno": {
-            "settings": {
-                "deno": {
-                    "enable":true,
-                    "enumMemberValues.enabled":true,
-                    "functionLikeReturnTypes.enabled":true,
-                    "deno.codeLens.implementations": false,
-                    "deno.codeLens.references": false,
-                    "deno.codeLens.referencesAllFunctions": false,
-                    "deno.codeLens.test": false,
-                    "deno.inlayHints.enumMemberValues.enabled": true,
-                    "deno.inlayHints.functionLikeReturnTypes.enabled": true,
-                    "deno.inlayHints.parameterNames.enabled": "all",
-                    "deno.inlayHints.parameterNames.suppressWhenArgumentMatchesName": true,
-                    "deno.inlayHints.parameterTypes.enabled": true,
-                    "deno.inlayHints.propertyDeclarationTypes.enabled": true,
-                    "deno.inlayHints.variableTypes.enabled": true,
-                    "deno.inlayHints.variableTypes.suppressWhenTypeMatchesName": true,
-                    "editor.inlayHints.enabled": "onUnlessPressed",
-                    "deno.suggest.completeFunctionCalls": true,
-                    "deno.suggest.names":true,
-                    "deno.suggest.paths":true,
-                    "deno.suggest.autoImports":true,
-                    "deno.suggest.imports.autoDiscover":true,
-                    "deno.suggest.imports.hosts": {
-                        "https://deno.land": true
-                    },
-                    "deno.propertyDeclarationTypes.enabled":true,
-                    "deno.variableTypes.enabled":true
-                    }
-                }
+    "pyright": {
+        "settings": {
+            "python.analysis": {
+                "diagnosticMode": "workspace",
+                "typeCheckingMode": "strict"
+            },
+            "python": {
+                // "pythonPath": ".venv/bin/python"
             }
-  },
-  // Vim settings
-  "vim": {
-    "use_system_clipboard": "always",
-    "use_multiline_find": false,
-    "use_smartcase_find": false
+        }
+    },
+    // Specify the LSP name as a key here.
+    "rust-analyzer": {
+      // These initialization options are merged into Zed's defaults
+      "initialization_options": {
+        "check": {
+          "command": "clippy" // rust-analyzer.check.command (default: "check")
+        },
+        "cargo": { "autoreload": true },
+        "inlayHints": {
+            "maxLength": null,
+            "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+            },
+            "closureReturnTypeHints": {
+            "enable": "always"
+            }
+        }
+      },
+      "binary": {
+        "ignore_system_version": false
+      }
+    },
+    "deno": {
+          "settings": {
+            "deno": {
+              "enable": true,
+              "inlayHints": {
+                "parameterNames": {
+                  "enabled": "all"
+                },
+                "parameterTypes": {
+                  "enabled": true
+                },
+                "variableTypes": {
+                  "enabled": true
+                },
+                "propertyDeclarationTypes": {
+                  "enabled": true
+                },
+                "functionLikeReturnTypes": {
+                  "enabled": true
+                },
+                "enumMemberValues": {
+                  "enabled": true
+                }
+              }
+            }
+          }
+        }
   },
   // The server to connect to. If the environment variable
   // ZED_SERVER_URL is set, it will override this setting.
@@ -893,37 +648,5 @@
   // Mostly useful for developers who are managing multiple instances of Zed.
   "dev": {
     // "theme": "Andromeda"
-  },
-  // Task-related settings.
-  "task": {
-    // Whether to show task status indicator in the status bar. Default: true
-    "show_status_indicator": true
-  },
-  // Whether to show full labels in line indicator or short ones
-  //
-  // Values:
-  //   - `short`: "2 s, 15 l, 32 c"
-  //   - `long`: "2 selections, 15 lines, 32 characters"
-  // Default: long
-  "line_indicator_format": "long",
-  // Set a proxy to use. The proxy protocol is specified by the URI scheme.
-  //
-  // Supported URI scheme: `http`, `https`, `socks4`, `socks4a`, `socks5`,
-  // `socks5h`. `http` will be used when no scheme is specified.
-  //
-  // By default no proxy will be used, or Zed will try get proxy settings from
-  // environment variables.
-  //
-  // Examples:
-  //   - "proxy": "socks5://localhost:10808"
-  //   - "proxy": "http://127.0.0.1:10809"
-  "proxy": "",
-  // Set to configure aliases for the command palette.
-  // When typing a query which is a key of this object, the value will be used instead.
-  //
-  // Examples:
-  // {
-  //   "W": "workspace::Save"
-  // }
-  "command_aliases": {}
+  }
 }
